@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `image` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_code` (`category_code`)
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 -- Dumping data for table netashop.categories: ~4 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` (`id`, `category_code`, `category_name`, `category_description`, `image`) VALUES
+INSERT INTO `categories` (`id`, `category_code`, `category_name`, `description`, `image`) VALUES
 	(1, 'CAT1', 'Laptop', 'All laptop products', 'categories/laptop.jpg'),
 	(2, 'CAT2', 'Phone', 'All phones', 'categories/phone.jpg'),
 	(3, 'CAT3', 'Camera', 'PhotographCamera', 'categories/camera.jpg'),
@@ -852,7 +852,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   CONSTRAINT `fk_order_details__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.order_details: ~10 rows (approximately)
+-- Dumping data for table netashop.order_details: ~700 rows (approximately)
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
 INSERT INTO `order_details` (`order_id`, `product_id`, `quantity`, `unit_price`, `discount`, `order_detail_status`, `date_allocated`) VALUES
 	(4001, 608, 1.0000, 6234000.0000, 8.73, 'Allocated', '2017-01-15 00:00:00'),
@@ -1570,25 +1570,53 @@ CREATE TABLE IF NOT EXISTS `products` (
   `discontinued` tinyint(4) NOT NULL DEFAULT '0',
   `discount` float NOT NULL DEFAULT '0',
   `category_id` int(11) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_products_categories` (`category_id`),
-  CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
+  KEY `FK_products_suppliers` (`supplier_id`),
+  CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  CONSTRAINT `FK_products_suppliers` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.products: ~10 rows (approximately)
+-- Dumping data for table netashop.products: ~7 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` (`id`, `product_code`, `product_name`, `image`, `description`, `standard_cost`, `list_price`, `quantity_per_unit`, `discontinued`, `discount`, `category_id`) VALUES
-	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60.jpg', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, 5, 3),
-	(602, 'P2', 'Canon T90', 'products/canon_t90.jpg', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, 0, 3),
-	(603, 'P3', 'Dell Inspirion', 'products/dell_inspirion.jpg', 'Dell Inspirion desc', 8283000.0000, 9384000.0000, '56', 0, 0, 1),
-	(604, 'P4', 'iPad Air', 'products/ipad_air.jpg', 'iPad Air desc', 8283000.0000, 9384000.0000, '56', 0, 15, 4),
-	(605, 'P5', 'Microsft Surface', 'products/microsoft_surface.jpg', 'Microsft Surface desc', 8283000.0000, 9384000.0000, '56', 0, 8.5, 4),
-	(606, 'P6', 'Nexus 6', 'products/nexus_6.jpg', 'Nexus 6 desc', 3388000.0000, 1170000.0000, '79', 0, 0, 2),
-	(607, 'P7', 'ThinkPad T365', 'products/thinkpad_t365.jpg', 'ThinkPad T365 desc', 4102000.0000, 898000.0000, '92', 1, 0, 1),
-	(608, 'P8', 'Moto Play', 'products/moto_play.jpg', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, 0, 2),
-	(609, 'P9', 'Samsung Note', 'products/samsung_note.jpg', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, 0, 4),
-	(610, 'P10', 'MacBook Pro', 'products/macbook_pro.jpg', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, 0, 1);
+INSERT INTO `products` (`id`, `product_code`, `product_name`, `image`, `description`, `standard_cost`, `list_price`, `quantity_per_unit`, `discontinued`, `discount`, `category_id`, `supplier_id`) VALUES
+	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60.jpg', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, 5, 3, NULL),
+	(602, 'P2', 'Canon T90', 'products/canon_t90.jpg', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, 0, 3, NULL),
+	(603, 'P3', 'Dell Inspirion', 'products/dell_inspirion.jpg', 'Dell Inspirion desc', 8283000.0000, 9384000.0000, '56', 0, 0, 1, NULL),
+	(604, 'P4', 'iPad Air', 'products/ipad_air.jpg', 'iPad Air desc', 8283000.0000, 9384000.0000, '56', 0, 15, 4, NULL),
+	(605, 'P5', 'Microsft Surface', 'products/microsoft_surface.jpg', 'Microsft Surface desc', 8283000.0000, 9384000.0000, '56', 0, 8.5, 4, NULL),
+	(606, 'P6', 'Nexus 6', 'products/nexus_6.jpg', 'Nexus 6 desc', 3388000.0000, 1170000.0000, '79', 0, 0, 2, NULL),
+	(607, 'P7', 'ThinkPad T365', 'products/thinkpad_t365.jpg', 'ThinkPad T365 desc', 4102000.0000, 898000.0000, '92', 1, 0, 1, NULL),
+	(608, 'P8', 'Moto Play', 'products/moto_play.jpg', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, 0, 2, NULL),
+	(609, 'P9', 'Samsung Note', 'products/samsung_note.jpg', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, 0, 4, NULL),
+	(610, 'P10', 'MacBook Pro', 'products/macbook_pro.jpg', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, 0, 1, NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
+
+-- Dumping structure for table netashop.suppliers
+CREATE TABLE IF NOT EXISTS `suppliers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supplier_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `image` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `category_code` (`supplier_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+
+-- Dumping data for table netashop.suppliers: ~4 rows (approximately)
+/*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
+INSERT INTO `suppliers` (`id`, `supplier_code`, `supplier_name`, `description`, `image`) VALUES
+	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple.jpg'),
+	(2, 'SUP2', 'Dell', 'Dell', 'suppliers/dell.jpg'),
+	(3, 'SUP3', 'Microsoft', 'Microsoft', 'suppliers/microsoft.jpg'),
+	(4, 'SUP4', 'Canon', 'Canon', 'suppliers/canon.jpg'),
+	(5, 'SUP5', 'Nikkon', 'Nikkon', 'suppliers/nikkon.jpg'),
+	(6, 'SUP6', 'Google', 'Google', 'suppliers/google.jpg'),
+	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad.jpg'),
+	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung.jpg'),
+	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto.jpg');
+/*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
