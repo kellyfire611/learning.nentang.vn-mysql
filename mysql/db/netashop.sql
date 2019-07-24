@@ -1578,19 +1578,19 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `FK_products_suppliers` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.products: ~7 rows (approximately)
+-- Dumping data for table netashop.products: ~10 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `product_code`, `product_name`, `image`, `description`, `standard_cost`, `list_price`, `quantity_per_unit`, `discontinued`, `discount`, `category_id`, `supplier_id`) VALUES
-	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60.jpg', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, 5, 3, NULL),
-	(602, 'P2', 'Canon T90', 'products/canon_t90.jpg', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, 0, 3, NULL),
-	(603, 'P3', 'Dell Inspirion', 'products/dell_inspirion.jpg', 'Dell Inspirion desc', 8283000.0000, 9384000.0000, '56', 0, 0, 1, NULL),
-	(604, 'P4', 'iPad Air', 'products/ipad_air.jpg', 'iPad Air desc', 8283000.0000, 9384000.0000, '56', 0, 15, 4, NULL),
-	(605, 'P5', 'Microsft Surface', 'products/microsoft_surface.jpg', 'Microsft Surface desc', 8283000.0000, 9384000.0000, '56', 0, 8.5, 4, NULL),
-	(606, 'P6', 'Nexus 6', 'products/nexus_6.jpg', 'Nexus 6 desc', 3388000.0000, 1170000.0000, '79', 0, 0, 2, NULL),
-	(607, 'P7', 'ThinkPad T365', 'products/thinkpad_t365.jpg', 'ThinkPad T365 desc', 4102000.0000, 898000.0000, '92', 1, 0, 1, NULL),
-	(608, 'P8', 'Moto Play', 'products/moto_play.jpg', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, 0, 2, NULL),
-	(609, 'P9', 'Samsung Note', 'products/samsung_note.jpg', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, 0, 4, NULL),
-	(610, 'P10', 'MacBook Pro', 'products/macbook_pro.jpg', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, 0, 1, NULL);
+	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60.jpg', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, 5, 3, 5),
+	(602, 'P2', 'Canon T90', 'products/canon_t90.jpg', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, 0, 3, 4),
+	(603, 'P3', 'Dell Inspirion', 'products/dell_inspirion.jpg', 'Dell Inspirion desc', 8283000.0000, 9384000.0000, '56', 0, 0, 1, 2),
+	(604, 'P4', 'iPad Air', 'products/ipad_air.jpg', 'iPad Air desc', 8283000.0000, 9384000.0000, '56', 0, 15, 4, 1),
+	(605, 'P5', 'Microsft Surface', 'products/microsoft_surface.jpg', 'Microsft Surface desc', 8283000.0000, 9384000.0000, '56', 0, 8.5, 4, 3),
+	(606, 'P6', 'Nexus 6', 'products/nexus_6.jpg', 'Nexus 6 desc', 3388000.0000, 1170000.0000, '79', 0, 0, 2, 6),
+	(607, 'P7', 'ThinkPad T365', 'products/thinkpad_t365.jpg', 'ThinkPad T365 desc', 4102000.0000, 898000.0000, '92', 1, 0, 1, 7),
+	(608, 'P8', 'Moto Play', 'products/moto_play.jpg', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, 0, 2, 9),
+	(609, 'P9', 'Samsung Note', 'products/samsung_note.jpg', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, 0, 4, 8),
+	(610, 'P10', 'MacBook Pro', 'products/macbook_pro.jpg', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, 0, 1, 1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.suppliers
@@ -1602,9 +1602,9 @@ CREATE TABLE IF NOT EXISTS `suppliers` (
   `image` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_code` (`supplier_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
--- Dumping data for table netashop.suppliers: ~4 rows (approximately)
+-- Dumping data for table netashop.suppliers: ~10 rows (approximately)
 /*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
 INSERT INTO `suppliers` (`id`, `supplier_code`, `supplier_name`, `description`, `image`) VALUES
 	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple.jpg'),
@@ -1615,7 +1615,9 @@ INSERT INTO `suppliers` (`id`, `supplier_code`, `supplier_name`, `description`, 
 	(6, 'SUP6', 'Google', 'Google', 'suppliers/google.jpg'),
 	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad.jpg'),
 	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung.jpg'),
-	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto.jpg');
+	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto.jpg'),
+	(10, 'SUP10', 'Nokia', 'Nokia', 'suppliers/nokia.jpg'),
+	(11, 'SUP11', 'BlackBerry', 'BlackBerry', 'suppliers/black_berry.jpg');
 /*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
