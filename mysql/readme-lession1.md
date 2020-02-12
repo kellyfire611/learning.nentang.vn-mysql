@@ -25,7 +25,6 @@ LIMIT 3;
 ```
 
 ## 3. Sản phẩm nào đã quá lâu không có khách hàng mua?
-
 ```sql
 select sp.sp_ten, sp.sp_gia, sp.sp_ngaycapnhat
 from sanpham sp
