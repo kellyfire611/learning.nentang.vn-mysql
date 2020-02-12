@@ -38,7 +38,7 @@ INSERT INTO `categories` (`id`, `category_code`, `category_name`, `description`,
 
 -- Dumping structure for table netashop.customers
 CREATE TABLE IF NOT EXISTS `customers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.customers: ~100 rows (approximately)
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
@@ -168,7 +168,7 @@ INSERT INTO `customers` (`id`, `username`, `password`, `last_name`, `first_name`
 
 -- Dumping structure for table netashop.employees
 CREATE TABLE IF NOT EXISTS `employees` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: user@123)',
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.employees: ~20 rows (approximately)
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
@@ -220,7 +220,7 @@ INSERT INTO `employees` (`id`, `username`, `password`, `last_name`, `first_name`
 
 -- Dumping structure for table netashop.orders
 CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) NOT NULL COMMENT 'Thuộc nhân viên nào xử lý',
   `customer_id` int(11) NOT NULL COMMENT 'Thuộc khách hàng',
   `order_date` datetime NOT NULL COMMENT 'Ngày tạo Đơn hàng',
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `FK_orders_customers` (`customer_id`),
   CONSTRAINT `FK_orders_customers` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `FK_orders_employees` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.orders: ~600 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
@@ -859,8 +859,8 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `date_allocated` datetime DEFAULT NULL,
   PRIMARY KEY (`order_id`,`product_id`),
   KEY `fk_order_details__products` (`product_id`),
-  CONSTRAINT `fk_order_details__orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `fk_order_details__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  CONSTRAINT `FK_order_details_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `FK_order_details_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.order_details: ~700 rows (approximately)
@@ -1570,7 +1570,7 @@ INSERT INTO `order_details` (`order_id`, `product_id`, `quantity`, `unit_price`,
 
 -- Dumping structure for table netashop.products
 CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_code` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã sản phẩm',
   `product_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên sản phẩm',
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
@@ -1588,7 +1588,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `FK_products_suppliers` (`supplier_id`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
   CONSTRAINT `FK_products_suppliers` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.products: ~10 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
@@ -1618,6 +1618,21 @@ CREATE TABLE IF NOT EXISTS `product_images` (
 -- Dumping data for table netashop.product_images: ~0 rows (approximately)
 /*!40000 ALTER TABLE `product_images` DISABLE KEYS */;
 /*!40000 ALTER TABLE `product_images` ENABLE KEYS */;
+
+-- Dumping structure for table netashop.product_reviews
+CREATE TABLE IF NOT EXISTS `product_reviews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `rating` float NOT NULL,
+  `comment` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_product_reviews_products` (`product_id`),
+  CONSTRAINT `FK_product_reviews_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table netashop.product_reviews: ~0 rows (approximately)
+/*!40000 ALTER TABLE `product_reviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_reviews` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.suppliers
 CREATE TABLE IF NOT EXISTS `suppliers` (
