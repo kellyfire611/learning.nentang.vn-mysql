@@ -6,15 +6,15 @@
 ```sql
 -- Xác thực tài khoản
 -- 1. Tạo biến và gán giá trị
-SET @email := 'phucuong@ctu.edu.vn' COLLATE utf8mb4_unicode_ci;
-SET @password := 'Admin@123' COLLATE utf8mb4_unicode_ci;
+SET @email := 'kellyfire611@gmail.com' COLLATE utf8mb4_unicode_ci;
+SET @password := 'a421e6b1f4ef36ee345db8db566d6b02' COLLATE UTF8MB4_UNICODE_CI; -- Chuỗi 'customer@123' đã được mã hóa MD5 thành 'a421e6b1f4ef36ee345db8db566d6b02'
 
--- 2. SELECT dữ liệu trong table `acl_users` với điều kiện (WHERE) khớp với 2 biến `@email` và `@password`
+-- 2. SELECT dữ liệu trong table `shop_customers` với điều kiện (WHERE) khớp với 2 biến `@email` và `@password`
 -- Nếu: 
 -- # Tìm thấy bất kỳ dòng dữ liệu nào (COUNT) > 0 => Xác thực thành công
 -- # Nếu không => Xác thực thất bại
 SELECT COUNT(*)
-FROM `acl_users`
+FROM `shop_customers`
 WHERE email = @email AND password = @password;
 ```
 
@@ -30,7 +30,7 @@ SET @email := 'phucuong@ctu.edu.vn' COLLATE utf8mb4_unicode_ci;
 -- Người dùng vời điều kiện @email có ID bao nhiêu?
 SET @user_id := 
     (SELECT id
-    FROM `acl_users`
+    FROM `shop_customers`
     WHERE email = @email
     LIMIT 1);
 -- SELECT @user_id;
