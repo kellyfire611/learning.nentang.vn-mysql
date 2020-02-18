@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `acl_roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `roles_name_index` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.acl_roles: ~4 rows (approximately)
 /*!40000 ALTER TABLE `acl_roles` DISABLE KEYS */;
@@ -1738,7 +1738,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
   CONSTRAINT `shop_product_discounts_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Table chứa thông tin các sản phẩm đang được khuyến mãi trong khoảng thời gian (từ ngày - đến ngày hết hạn).\r\nThường dùng cho các chức năng:\r\n- Hiển thị danh sách Sản phẩm với Giá tiền cũ và Giá tiền mới.\r\n- Hiển thị danh sách Sản phẩm với % được giảm giá...';
 
--- Dumping data for table netashop.shop_product_discounts: ~1 rows (approximately)
+-- Dumping data for table netashop.shop_product_discounts: ~2 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_discounts` DISABLE KEYS */;
 INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `id_fixed`, `start_date`, `end_date`) VALUES
 	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-03-01 00:00:00', '2020-03-31 23:59:59'),
@@ -1780,7 +1780,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
   CONSTRAINT `FK_shop_product_reviews_shop_customers` FOREIGN KEY (`customer_id`) REFERENCES `shop_customers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.shop_product_reviews: ~1 rows (approximately)
+-- Dumping data for table netashop.shop_product_reviews: ~3 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_reviews` DISABLE KEYS */;
 INSERT INTO `shop_product_reviews` (`id`, `product_id`, `customer_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
 	(1, 601, 1, 4, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 16:03:05', NULL),
@@ -1800,7 +1800,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_vouchers` (
   CONSTRAINT `FK_shop_product_vouchers_shop_vouchers` FOREIGN KEY (`voucher_id`) REFERENCES `shop_vouchers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Table lưu thông tin Sản phẩm nào được áp dụng Voucher nào?';
 
--- Dumping data for table netashop.shop_product_vouchers: ~0 rows (approximately)
+-- Dumping data for table netashop.shop_product_vouchers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `shop_product_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_product_vouchers` (`product_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
 	(601, 1, '2020-02-17 16:07:38', NULL),
