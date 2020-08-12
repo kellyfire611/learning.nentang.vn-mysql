@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `acl_model_has_permissions` (
   CONSTRAINT `FK_model_has_permissions` FOREIGN KEY (`permission_id`) REFERENCES `acl_permissions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.acl_model_has_permissions: ~1 rows (approximately)
+-- Dumping data for table netashop.acl_model_has_permissions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `acl_model_has_permissions` DISABLE KEYS */;
 INSERT INTO `acl_model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
 	(2, 'App\\Models\\Auth\\User', 1);
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `acl_role_has_permissions` (
   CONSTRAINT `FK_role_has_permissions_role_id` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.acl_role_has_permissions: ~1 rows (approximately)
+-- Dumping data for table netashop.acl_role_has_permissions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `acl_role_has_permissions` DISABLE KEYS */;
 INSERT INTO `acl_role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(1, 1);
@@ -187,7 +187,7 @@ INSERT INTO `shop_categories` (`id`, `category_code`, `category_name`, `descript
 -- Dumping structure for table netashop.shop_customers
 CREATE TABLE IF NOT EXISTS `shop_customers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
+  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `shop_customers` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.shop_customers: ~101 rows (approximately)
+-- Dumping data for table netashop.shop_customers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `shop_customers` DISABLE KEYS */;
 INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `company`, `phone`, `billing_address`, `shipping_address`, `city`, `state`, `postal_code`, `country`, `remember_token`, `activate_code`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 20:31:30', '2020-02-23 20:31:30'),
@@ -332,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `shop_customer_vouchers` (
   CONSTRAINT `FK_shop_customer_vouchers_shop_vouchers` FOREIGN KEY (`voucher_id`) REFERENCES `shop_vouchers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Table lưu thông tin Khách hàng nào được áp dụng Voucher nào?\r\nCó thể lập danh sách Khách hàng bằng cách:\r\n- Tạo chức năng tự động tạo Voucher cho Khách hàng thân thiết (mua nhiều hàng hóa trong năm, ...) khi đến sinh nhật của họ.\r\n- Người thân của Giám đốc ;)';
 
--- Dumping data for table netashop.shop_customer_vouchers: ~1 rows (approximately)
+-- Dumping data for table netashop.shop_customer_vouchers: ~0 rows (approximately)
 /*!40000 ALTER TABLE `shop_customer_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_customer_vouchers` (`customer_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
 	(1, 2, '2020-02-17 16:08:01', NULL);
