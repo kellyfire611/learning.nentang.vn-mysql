@@ -31,6 +31,19 @@ INSERT INTO suppliers
 	VALUES (NULL, '', '', '', '')
 ```
 
+Ví dụ:
+```sql
+-- INSERT dữ liệu vào table `shop_suppliers` (cách tường minh)
+-- Lưu ý: 
+-- 1. nếu muốn truyền dữ liệu là chuỗi UNICODE (tức là có gõ dấu tiếng Việt)
+--    chúng ta phải sử dụng tiền tố N trước chuỗi giá trị cần truyền
+--    Ví dụ: N'Điện thoại BPhone'
+-- 2. Đối với dữ liệu ngày tháng, MYSQL nhận vào chuỗi theo định dạng sau YYYY-MM-DD HH:mm:ss
+--                                                          tức là Năm(4 số)-Tháng-Ngày Giờ:Phút:Giây
+INSERT INTO shop_suppliers(id, supplier_code, supplier_name, description, image, created_at, updated_at)
+VALUES (13, 'SUP13', 'VinPhone', N'Điện thoại VinPhone', 'suppliers/vinphone.jpg', '2020-08-08 12:45:00', NULL)
+```
+
 ## 3. Thêm dữ liệu vào các bảng (tables) `suppliers`, `categories`, `products`
 ### Cho dữ liệu như sau:
 
