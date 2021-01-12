@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `shop_customer_vouchers` (
   CONSTRAINT `FK_shop_customer_vouchers_shop_vouchers` FOREIGN KEY (`voucher_id`) REFERENCES `shop_vouchers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Table lưu thông tin Khách hàng nào được áp dụng Voucher nào?\r\nCó thể lập danh sách Khách hàng bằng cách:\r\n- Tạo chức năng tự động tạo Voucher cho Khách hàng thân thiết (mua nhiều hàng hóa trong năm, ...) khi đến sinh nhật của họ.\r\n- Người thân của Giám đốc ;)';
 
--- Dumping data for table netashop.shop_customer_vouchers: ~0 rows (approximately)
+-- Dumping data for table netashop.shop_customer_vouchers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `shop_customer_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_customer_vouchers` (`id`, `customer_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 2, '2020-02-17 16:08:01', NULL);
