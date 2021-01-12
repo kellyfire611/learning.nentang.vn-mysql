@@ -17,45 +17,12 @@
 CREATE DATABASE IF NOT EXISTS `netashop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `netashop`;
 
--- Dumping structure for table netashop.acl_model_has_permissions
-CREATE TABLE IF NOT EXISTS `acl_model_has_permissions` (
-  `permission_id` bigint(20) unsigned NOT NULL,
-  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
-  KEY `model_has_permissions_model_type_model_id_index` (`model_type`,`model_id`),
-  CONSTRAINT `FK_model_has_permissions` FOREIGN KEY (`permission_id`) REFERENCES `acl_permissions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table netashop.acl_model_has_permissions: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_model_has_permissions` DISABLE KEYS */;
-INSERT INTO `acl_model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
-	(2, 'App\\Models\\Auth\\User', 1);
-/*!40000 ALTER TABLE `acl_model_has_permissions` ENABLE KEYS */;
-
--- Dumping structure for table netashop.acl_model_has_roles
-CREATE TABLE IF NOT EXISTS `acl_model_has_roles` (
-  `role_id` bigint(20) unsigned NOT NULL,
-  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
-  KEY `model_has_roles_model_type_model_id_index` (`model_type`,`model_id`),
-  CONSTRAINT `FK_model_has_roles` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table netashop.acl_model_has_roles: ~2 rows (approximately)
-/*!40000 ALTER TABLE `acl_model_has_roles` DISABLE KEYS */;
-INSERT INTO `acl_model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-	(1, 'App\\Models\\Auth\\User', 1),
-	(2, 'App\\Models\\Auth\\User', 2);
-/*!40000 ALTER TABLE `acl_model_has_roles` ENABLE KEYS */;
-
 -- Dumping structure for table netashop.acl_permissions
 CREATE TABLE IF NOT EXISTS `acl_permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -71,13 +38,12 @@ INSERT INTO `acl_permissions` (`id`, `name`, `display_name`, `guard_name`, `crea
 -- Dumping structure for table netashop.acl_roles
 CREATE TABLE IF NOT EXISTS `acl_roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `roles_name_index` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table netashop.acl_roles: ~4 rows (approximately)
@@ -91,18 +57,20 @@ INSERT INTO `acl_roles` (`id`, `name`, `display_name`, `guard_name`, `created_at
 
 -- Dumping structure for table netashop.acl_role_has_permissions
 CREATE TABLE IF NOT EXISTS `acl_role_has_permissions` (
-  `permission_id` bigint(20) unsigned NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`role_id`),
-  KEY `FK_role_has_permissions_role_id` (`role_id`),
-  CONSTRAINT `FK_role_has_permissions_id` FOREIGN KEY (`permission_id`) REFERENCES `acl_permissions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_role_has_permissions_role_id` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `permission_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_acl_role_has_permissions_acl_permissions` (`permission_id`),
+  KEY `FK_acl_role_has_permissions_acl_roles` (`role_id`),
+  CONSTRAINT `FK_acl_role_has_permissions_acl_permissions` FOREIGN KEY (`permission_id`) REFERENCES `acl_permissions` (`id`),
+  CONSTRAINT `FK_acl_role_has_permissions_acl_roles` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table netashop.acl_role_has_permissions: ~0 rows (approximately)
+-- Dumping data for table netashop.acl_role_has_permissions: ~1 rows (approximately)
 /*!40000 ALTER TABLE `acl_role_has_permissions` DISABLE KEYS */;
-INSERT INTO `acl_role_has_permissions` (`permission_id`, `role_id`) VALUES
-	(1, 1);
+INSERT INTO `acl_role_has_permissions` (`id`, `role_id`, `permission_id`) VALUES
+	(1, 1, 1);
 /*!40000 ALTER TABLE `acl_role_has_permissions` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.acl_users
@@ -162,6 +130,38 @@ INSERT INTO `acl_users` (`id`, `username`, `password`, `last_name`, `first_name`
 	(219, 'user19', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Myers', 'Roger', 0, 'rmyersi@alexa.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Account Executive', 'Beauty', NULL, '1-(480)583-9583', '3 Eagle Crest Place', NULL, 'Gilbert', 'Arizona', '85297', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(220, 'user20', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Hunter', 'Bonnie', 1, 'bhunterj@ucsd.edu', NULL, 'avatars/logo-nentang.jpg', NULL, 'Analog Circuit Design manager', 'Baby', NULL, '1-(320)933-5140', '99 Arapahoe Terrace', NULL, 'Saint Cloud', 'Minnesota', '56372', 'United States', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `acl_users` ENABLE KEYS */;
+
+-- Dumping structure for table netashop.acl_user_has_permissions
+CREATE TABLE IF NOT EXISTS `acl_user_has_permissions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `permission_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_acl_model_has_permissions_acl_permissions` (`permission_id`),
+  KEY `FK_acl_user_has_permissions_acl_users` (`user_id`),
+  CONSTRAINT `FK_acl_model_has_permissions_acl_permissions` FOREIGN KEY (`permission_id`) REFERENCES `acl_permissions` (`id`),
+  CONSTRAINT `FK_acl_user_has_permissions_acl_users` FOREIGN KEY (`user_id`) REFERENCES `acl_users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table netashop.acl_user_has_permissions: ~0 rows (approximately)
+/*!40000 ALTER TABLE `acl_user_has_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acl_user_has_permissions` ENABLE KEYS */;
+
+-- Dumping structure for table netashop.acl_user_has_roles
+CREATE TABLE IF NOT EXISTS `acl_user_has_roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `role_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_acl_model_has_roles_acl_roles` (`role_id`),
+  KEY `FK_acl_user_has_roles_acl_users` (`user_id`),
+  CONSTRAINT `FK_acl_model_has_roles_acl_roles` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`),
+  CONSTRAINT `FK_acl_user_has_roles_acl_users` FOREIGN KEY (`user_id`) REFERENCES `acl_users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table netashop.acl_user_has_roles: ~0 rows (approximately)
+/*!40000 ALTER TABLE `acl_user_has_roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acl_user_has_roles` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_categories
 CREATE TABLE IF NOT EXISTS `shop_categories` (
@@ -341,11 +341,48 @@ INSERT INTO `shop_customer_vouchers` (`id`, `customer_id`, `voucher_id`, `create
 	(1, 1, 2, '2020-02-17 16:08:01', NULL);
 /*!40000 ALTER TABLE `shop_customer_vouchers` ENABLE KEYS */;
 
+-- Dumping structure for table netashop.shop_exports
+CREATE TABLE IF NOT EXISTS `shop_exports` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` bigint(20) unsigned NOT NULL COMMENT 'Xuất từ kho hàng nào?',
+  `employee_id` bigint(20) unsigned NOT NULL COMMENT 'Nhân viên nào lập phiếu xuất?',
+  `export_date` datetime NOT NULL COMMENT 'Ngày Xuất kho',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_shop_exports_acl_users` (`employee_id`) USING BTREE,
+  KEY `FK_shop_exports_shop_stores` (`store_id`) USING BTREE,
+  CONSTRAINT `FK_shop_exports_acl_users` FOREIGN KEY (`employee_id`) REFERENCES `acl_users` (`id`),
+  CONSTRAINT `FK_shop_exports_shop_stores` FOREIGN KEY (`store_id`) REFERENCES `shop_stores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table netashop.shop_exports: ~0 rows (approximately)
+/*!40000 ALTER TABLE `shop_exports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shop_exports` ENABLE KEYS */;
+
+-- Dumping structure for table netashop.shop_export_details
+CREATE TABLE IF NOT EXISTS `shop_export_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `export_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc phiếu Xuất nào?',
+  `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào xuất đi?',
+  `quantity` decimal(18,4) NOT NULL DEFAULT 0.0000 COMMENT 'Số lượng xuất',
+  `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Đơn giá xuất',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_shop_export_details_shop_exports` (`export_id`) USING BTREE,
+  KEY `FK_shop_export_details_shop_products` (`product_id`) USING BTREE,
+  CONSTRAINT `FK_shop_export_details_shop_exports` FOREIGN KEY (`export_id`) REFERENCES `shop_exports` (`id`),
+  CONSTRAINT `FK_shop_export_details_shop_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table netashop.shop_export_details: ~0 rows (approximately)
+/*!40000 ALTER TABLE `shop_export_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shop_export_details` ENABLE KEYS */;
+
 -- Dumping structure for table netashop.shop_imports
 CREATE TABLE IF NOT EXISTS `shop_imports` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `employee_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc nhân viên nào lập phiếu nhập',
-  `store_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc kho hàng nào',
+  `store_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc kho hàng nào?',
+  `employee_id` bigint(20) unsigned NOT NULL COMMENT 'Nhân viên nào lập phiếu nhập?',
   `import_date` datetime NOT NULL COMMENT 'Ngày Nhập kho',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -363,10 +400,10 @@ CREATE TABLE IF NOT EXISTS `shop_imports` (
 -- Dumping structure for table netashop.shop_import_details
 CREATE TABLE IF NOT EXISTS `shop_import_details` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `import_id` bigint(20) unsigned NOT NULL,
-  `product_id` bigint(20) unsigned NOT NULL,
-  `quantity` decimal(18,4) NOT NULL DEFAULT 0.0000,
-  `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000,
+  `import_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc phiếu Nhập nào?',
+  `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào nhập vào?',
+  `quantity` decimal(18,4) NOT NULL DEFAULT 0.0000 COMMENT 'Số lượng nhập',
+  `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Đơn giá nhập',
   PRIMARY KEY (`id`),
   KEY `FK_shop_import_details_shop_imports` (`import_id`),
   KEY `FK_shop_import_details_shop_products` (`product_id`),
