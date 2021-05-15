@@ -1,0 +1,4044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dương Nguyễn Phú Cường">
+  <meta name="description" content="Nền tảng kiến thức Mô tả về database Thương mại điện tử Bán hàng có Quản lý Kho hàng">
+  <title>Mô tả về Database Thương mại Điện tử có Quản lý Kho hàng - Nền tảng Kiến thức</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;700&display=swap" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
+
+  <script>
+    // Highlight table corresponding to the current fragment in the URL.
+    $(document).ready(function () {
+      $("a").click(function () {
+        var elem = $(this);
+        // Remove all classes from tables.
+        $("table").removeClass("focused")
+        // Get a.href value and extract its fragment id.
+        var id = elem.attr("href");
+        // Highlight table using fragment id.
+        $(id).addClass("focused");
+      });
+    });
+  </script>
+  <style type="text/css">
+    * {
+      font-family: 'Nunito Sans', sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    abbr {
+      cursor: help;
+    }
+
+    header {
+      color: #6A6A6A;
+      text-align: right;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    table caption {
+      font-size: 120%;
+      font-weight: bold;
+      caption-side: top;
+    }
+
+    table,
+    td,
+    th {
+      border-color: silver;
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    caption {
+      color: black;
+    }
+
+    td,
+    th {
+      padding: 1em;
+    }
+
+    tr:hover {
+      color: #333;
+      background-color: #F2F2F2;
+    }
+
+    th {
+      background-color: #F5F5F5;
+    }
+
+    td {
+      color: #6A6A6A;
+    }
+
+    ul {
+      font-style: italic;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .field {
+      color: #4C4C4C;
+      font-weight: bold;
+    }
+
+    .focused {
+      outline-color: aqua;
+      outline-style: solid;
+      outline-width: thin;
+    }
+
+    .break-border {
+      height: 2px;
+      background: red;
+    }
+
+    #footer {
+      padding: 16px 30px 16px 30px;
+      color: red;
+    }
+
+    .mohinh-er {
+      border: 1px solid red;
+    }
+    /* div {
+      border: 1px solid red;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="row">
+        <div class="col-md-3 text-left">
+          <img src="logo-nentang.jpg" class="img-fluid" style="width: 150px;"/>
+        </div>
+        <div class="col-md-9 d-flex flex-column justify-content-center">
+          <div>
+            <h1>Mô tả database <b>netashop</b></h1>
+            <p>
+              <em>Tác giả: <b>Dương Nguyễn Phú Cường</b></em><br />
+              <em>Email: <b><a href="mailto:nentangtoituonglai@gmail.com">nentangtoituonglai@gmail.com</a></b></em><br />
+              <em>Phiên bản: <b>1.1</b></em><br />
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="col">
+        <h2>Lời nói đầu</h2>
+        <p>
+          Với mục đích cung cấp các Kiến thức Nền tảng về Lập trình Web, Di động, thiết kế cơ sở dữ liệu... Giúp các bạn Học sinh, Sinh viên có các kiến thức Nền tảng để có thể áp dụng khi làm các Đồ án/Luận văn, các dự án Outsource/Outside/Freelancer, và ra trường có thể apply vào các công ty làm việc được ngay.<br />
+          Mình dựa trên các kinh nghiệm từ khi thực hiện các dự án Phần mềm, đúc kết được thành một bản mô tả Database tuy căn bản nhưng cũng có thể đáp ứng được các nhu cầu cần có về một trang web Thương mại điện tử có Quản lý Kho hàng với số lượng Tồn kho theo thời gian thực, có thể áp dụng vào các dự án Thương mại (production) thực tế được.<br />
+          Sau khi có các Kiến thức Nền tảng, các bạn có thể vững vàng đi tiếp con đường của mình, chúc Thành công 🧡💛💚💙💜
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h2>Các tính năng Database có thể đáp ứng</h2>
+        <p>
+          Database được thiết kế để có thể thực hiện các chức năng:
+          <ul>
+            <li>Quản lý thông tin Người dùng.</li>
+            <li>Quản lý thông tin Khách hàng.</li>
+            <li>Quản lý thông tin Xác thực và Phân quyền Hệ thống.</li>
+            <li>Quản lý thông tin Sản phẩm, Nhà cung cấp. Phân loại Sản phẩm theo chuyên mục/loại/nhóm...</li>
+            <li>Quản lý Đa phương tiện (ảnh, video, tập tin đính kèm...) mô tả về Sản phẩm.</li>
+            <li>Quản lý Kho hàng - Nhập/Xuất kho.</li>
+            <li>Quản lý Số lượng tồn kho theo thời gian thực.</li>
+            <li>Quản lý Đơn hàng, chi tiết Đơn hàng - Gởi thông báo đến Người Quản trị qua các kênh Email/SMS/Mạng xã hội Facebook, Instagram, Zalo,....</li>
+            <li>Quản lý Khuyến mãi theo các hình thức Voucher/Coupon.</li>
+            <li>Quản lý Thanh toán Trực tuyến qua các cổng Thanh toán phổ biến (Ngân hàng / Paypal / Stripe / Momo...).</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+    <nav>
+      <h2>Danh sách các Tables</h2>
+      <ul>
+        <li><a href='#acl_permissions'>acl_permissions</a></li>
+        <li><a href='#acl_role_has_permissions'>acl_role_has_permissions</a></li>
+        <li><a href='#acl_roles'>acl_roles</a></li>
+        <li><a href='#acl_user_has_permissions'>acl_user_has_permissions</a></li>
+        <li><a href='#acl_user_has_roles'>acl_user_has_roles</a></li>
+        <li><a href='#acl_users'>acl_users</a></li>
+        <li><a href='#shop_categories'>shop_categories</a></li>
+        <li><a href='#shop_customer_vouchers'>shop_customer_vouchers</a></li>
+        <li><a href='#shop_customers'>shop_customers</a></li>
+        <li><a href='#shop_export_details'>shop_export_details</a></li>
+        <li><a href='#shop_exports'>shop_exports</a></li>
+        <li><a href='#shop_import_details'>shop_import_details</a></li>
+        <li><a href='#shop_imports'>shop_imports</a></li>
+        <li><a href='#shop_order_details'>shop_order_details</a></li>
+        <li><a href='#shop_orders'>shop_orders</a></li>
+        <li><a href='#shop_payment_types'>shop_payment_types</a></li>
+        <li><a href='#shop_post_categories'>shop_post_categories</a></li>
+        <li><a href='#shop_posts'>shop_posts</a></li>
+        <li><a href='#shop_product_discounts'>shop_product_discounts</a></li>
+        <li><a href='#shop_product_images'>shop_product_images</a></li>
+        <li><a href='#shop_product_reviews'>shop_product_reviews</a></li>
+        <li><a href='#shop_product_vouchers'>shop_product_vouchers</a></li>
+        <li><a href='#shop_products'>shop_products</a></li>
+        <li><a href='#shop_settings'>shop_settings</a></li>
+        <li><a href='#shop_stores'>shop_stores</a></li>
+        <li><a href='#shop_suppliers'>shop_suppliers</a></li>
+        <li><a href='#shop_vouchers'>shop_vouchers</a></li>
+        <li><a href='#mohinh-er' style="color: red;">🌈 Mô hình Thực thể (ER) cơ sở dữ liệu NetaShop</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <table class="table table-responsive" id='acl_permissions'>
+        <caption>acl_permissions</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về Quyền</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên Quyền</td>
+        </tr>
+        <tr>
+          <td class='field'>display_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Tên Quyền thân thiện (dễ hiểu cho người dùng)</td>
+        </tr>
+        <tr>
+          <td class='field'>guard_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên guard bảo vệ</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='acl_role_has_permissions'>
+        <caption>acl_role_has_permissions</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu xác định Vai trò nào &lt;-&gt; Có những Quyền nào?</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>role_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#role'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Vai trò nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>permission_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#permission'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Quyền nào?</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='acl_roles'>
+        <caption>acl_roles</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về Vai trò</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên Vai trò</td>
+        </tr>
+        <tr>
+          <td class='field'>display_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Tên Vai trò thân thiện (dễ hiểu với người dùng)</td>
+        </tr>
+        <tr>
+          <td class='field'>guard_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên guard bảo vệ</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='acl_user_has_permissions'>
+        <caption>acl_user_has_permissions</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu xác định Người dùng nào &lt;-&gt; Có những Quyền nào?</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>user_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Người dùng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>permission_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#permission'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Quyền nào?</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='acl_user_has_roles'>
+        <caption>acl_user_has_roles</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu xác định Người dùng nào &lt;-&gt; Có những Vai trò nào?</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>user_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Người dùng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>role_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#role'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>(FK) Vai trò nào?</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='acl_users'>
+        <caption>acl_users</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về Người dùng trong Hệ thống</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>username</td>
+          <td>VARCHAR(191)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên đăng nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>password</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mật khẩu (mặc định: user@123)</td>
+        </tr>
+        <tr>
+          <td class='field'>last_name</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Họ và tên lót</td>
+        </tr>
+        <tr>
+          <td class='field'>first_name</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên</td>
+        </tr>
+        <tr>
+          <td class='field'>gender</td>
+          <td>TINYINT(3)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Giới tính: #0: Nam; #1: Nữ</td>
+        </tr>
+        <tr>
+          <td class='field'>email</td>
+          <td>VARCHAR(191)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Email</td>
+        </tr>
+        <tr>
+          <td class='field'>birthday</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày sinh</td>
+        </tr>
+        <tr>
+          <td class='field'>avatar</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Hình đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>code</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mã CMND / CCCD</td>
+        </tr>
+        <tr>
+          <td class='field'>job_title</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Chức danh</td>
+        </tr>
+        <tr>
+          <td class='field'>department</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Phòng</td>
+        </tr>
+        <tr>
+          <td class='field'>manager_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Người phụ trách Quản lý</td>
+        </tr>
+        <tr>
+          <td class='field'>phone</td>
+          <td>VARCHAR(25)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Số điện thoại</td>
+        </tr>
+        <tr>
+          <td class='field'>address1</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Địa chỉ 1</td>
+        </tr>
+        <tr>
+          <td class='field'>address2</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Địa chỉ 2</td>
+        </tr>
+        <tr>
+          <td class='field'>city</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Thành phố</td>
+        </tr>
+        <tr>
+          <td class='field'>state</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Bang</td>
+        </tr>
+        <tr>
+          <td class='field'>postal_code</td>
+          <td>VARCHAR(15)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mã bưu chính</td>
+        </tr>
+        <tr>
+          <td class='field'>country</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Quốc gia</td>
+        </tr>
+        <tr>
+          <td class='field'>remember_token</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Token ghi nhớ Đăng nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>active_code</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mã kích hoạt</td>
+        </tr>
+        <tr>
+          <td class='field'>status</td>
+          <td>TINYINT(4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_categories'>
+        <caption>shop_categories</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Chuyên mục (dùng để phân loại/phân nhóm Sản phẩm)</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>category_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã chuyên mục</td>
+        </tr>
+        <tr>
+          <td class='field'>category_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên chuyên mục</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_customer_vouchers'>
+        <caption>shop_customer_vouchers</caption>
+        <tr>
+          <td colspan='12'>Table lưu thông tin Khách hàng nào được áp dụng Voucher nào?<br />Có thể lập danh sách Khách
+            hàng
+            bằng cách:<br />- Tạo chức năng tự động tạo Voucher cho Khách hàng thân thiết (mua nhiều hàng hóa trong năm,
+            ...) khi đến sinh nhật của họ.<br />- Người thân của Giám đốc ;)</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>customer_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Khách hàng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>voucher_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#voucher'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Voucher nào áp dụng?</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_customers'>
+        <caption>shop_customers</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về Khách hàng</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class='field'>username</td>
+          <td>VARCHAR(191)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên đăng nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>password</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mật khẩu (mặc định: customer@123)</td>
+        </tr>
+        <tr>
+          <td class='field'>last_name</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Họ và tên lót</td>
+        </tr>
+        <tr>
+          <td class='field'>first_name</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên</td>
+        </tr>
+        <tr>
+          <td class='field'>gender</td>
+          <td>TINYINT(4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Giới tính: #0: Nam; #1: Nữ</td>
+        </tr>
+        <tr>
+          <td class='field'>email</td>
+          <td>VARCHAR(191)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Email</td>
+        </tr>
+        <tr>
+          <td class='field'>birthday</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày sinh</td>
+        </tr>
+        <tr>
+          <td class='field'>avatar</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>code</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã CMND / CCCD</td>
+        </tr>
+        <tr>
+          <td class='field'>company</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Công ty</td>
+        </tr>
+        <tr>
+          <td class='field'>phone</td>
+          <td>VARCHAR(25)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Số điện thoại</td>
+        </tr>
+        <tr>
+          <td class='field'>billing_address</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Địa chỉ Thanh toán</td>
+        </tr>
+        <tr>
+          <td class='field'>shipping_address</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Địa chỉ Giao hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>city</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Thành phố</td>
+        </tr>
+        <tr>
+          <td class='field'>state</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Bang</td>
+        </tr>
+        <tr>
+          <td class='field'>postal_code</td>
+          <td>VARCHAR(15)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mã bưu chính</td>
+        </tr>
+        <tr>
+          <td class='field'>country</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Quốc gia</td>
+        </tr>
+        <tr>
+          <td class='field'>remember_token</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Token ghi nhớ đăng nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>activate_code</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mã kích hoạt</td>
+        </tr>
+        <tr>
+          <td class='field'>status</td>
+          <td>TINYINT(4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_export_details'>
+        <caption>shop_export_details</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Sản phẩm được xuất trong Phiếu Xuất</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>export_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#export'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc phiếu Xuất nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Sản phẩm nào xuất đi?</td>
+        </tr>
+        <tr>
+          <td class='field'>quantity</td>
+          <td>DECIMAL(18,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Số lượng xuất</td>
+        </tr>
+        <tr>
+          <td class='field'>unit_price</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Đơn giá xuất</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_exports'>
+        <caption>shop_exports</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Phiếu Nhập</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>store_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#store'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Xuất từ kho hàng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>employee_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Nhân viên nào lập phiếu xuất?</td>
+        </tr>
+        <tr>
+          <td class='field'>export_date</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ngày Xuất kho</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_import_details'>
+        <caption>shop_import_details</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Sản phẩm được nhập trong Phiếu Nhập</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>import_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#import'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc phiếu Nhập nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Sản phẩm nào nhập vào?</td>
+        </tr>
+        <tr>
+          <td class='field'>quantity</td>
+          <td>DECIMAL(18,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Số lượng nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>unit_price</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Đơn giá nhập</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_imports'>
+        <caption>shop_imports</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Phiếu Nhập</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>store_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#store'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc kho hàng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>employee_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Nhân viên nào lập phiếu nhập?</td>
+        </tr>
+        <tr>
+          <td class='field'>import_date</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ngày Nhập kho</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_order_details'>
+        <caption>shop_order_details</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Sản phẩm đã mua trong Đơn hàng</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>order_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#order'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc đơn hàng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Sản phẩm nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>quantity</td>
+          <td>DECIMAL(18,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Số lượng sản phẩm trong đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>unit_price</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Giá bán của Sản phẩm trong Đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>discount_percentage</td>
+          <td>FLOAT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Giảm giá theo % từng Sản phẩm trong Đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>discount_amout</td>
+          <td>DOUBLE</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Giảm giá theo Số tiền cụ thể cho từng Sản phẩm trong Đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>order_detail_status</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Trạng thái của từng Sản phẩm trong Đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>date_allocated</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày Sản phẩm này đã chuyển đến tay Khách hàng</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_orders'>
+        <caption>shop_orders</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Đơn hàng</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>employee_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc nhân viên nào xử lý?</td>
+        </tr>
+        <tr>
+          <td class='field'>customer_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc khách hàng nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>order_date</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ngày tạo Đơn hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>shipped_date</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày giao hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_name</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Họ tên Người giao hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_address1</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Giao hàng đến Địa chỉ 1</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_address2</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Giao hàng đến Địa chỉ 2</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_city</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Giao hàng đến Thành phố</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_state</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Giao hàng đến Bang</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_postal_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Giao hàng đến Mã bưu chính</td>
+        </tr>
+        <tr>
+          <td class='field'>ship_country</td>
+          <td>VARCHAR(255)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Giao hàng đến Quốc gia</td>
+        </tr>
+        <tr>
+          <td class='field'>shipping_fee</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Phí giao hàng</td>
+        </tr>
+        <tr>
+          <td class='field'>payment_type_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#payment_type'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Phương thức Thanh toán nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>paid_date</td>
+          <td>DATETIME</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày thanh toán</td>
+        </tr>
+        <tr>
+          <td class='field'>order_status</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Trạng thái: #New: mới tạo Đơn hàng -&gt; #On Hold: đang xử lý -&gt; #Shipped: đã giao hàng -&gt;
+            #Complete:
+            đã hoàn tất đơn hàng (khách đã thanh toán và nhận hàng xong)</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_payment_types'>
+        <caption>shop_payment_types</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Phương thức Thanh toán</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>payment_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã hình thức thanh toán</td>
+        </tr>
+        <tr>
+          <td class='field'>payment_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên hình thức thanh toán</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_post_categories'>
+        <caption>shop_post_categories</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Chuyên mục (dùng để phân loại/phân nhóm các Bài viết/Trang)</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>post_category_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã chuyên mục</td>
+        </tr>
+        <tr>
+          <td class='field'>post_category_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên chuyên mục</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>MEDIUMTEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>MEDIUMTEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_posts'>
+        <caption>shop_posts</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Bài viết PR trên trang web</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>post_slug</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>''</td>
+          <td>Đường dẫn của bài viết</td>
+        </tr>
+        <tr>
+          <td class='field'>post_title</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>''</td>
+          <td>Tiêu đề bài viết</td>
+        </tr>
+        <tr>
+          <td class='field'>post_content</td>
+          <td>MEDIUMTEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Nội dung bài viết</td>
+        </tr>
+        <tr>
+          <td class='field'>post_excerpt</td>
+          <td>MEDIUMTEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải về Cấu hình</td>
+        </tr>
+        <tr>
+          <td class='field'>post_type</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'post'</td>
+          <td>Loại bài viết: #1: bài viết, #2: trang cố định</td>
+        </tr>
+        <tr>
+          <td class='field'>post_status</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'draft'</td>
+          <td>Trạng thái bài viết: #draft: viết nháp; #publish: đăng lên trang web; ...</td>
+        </tr>
+        <tr>
+          <td class='field'>post_image</td>
+          <td>MEDIUMTEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện bài viết</td>
+        </tr>
+        <tr>
+          <td class='field'>user_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class='field'>post_category_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#post_category'>&#10004;</a></td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Thuộc chuyên mục nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_product_discounts'>
+        <caption>shop_product_discounts</caption>
+        <tr>
+          <td colspan='12'>Table chứa thông tin các sản phẩm đang được khuyến mãi trong khoảng thời gian (từ ngày - đến
+            ngày hết hạn).<br />Thường dùng cho các chức năng:<br />- Hiển thị danh sách Sản phẩm với Giá tiền cũ và Giá
+            tiền
+            mới.<br />- Hiển thị danh sách Sản phẩm với % được giảm giá...</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc sản phẩm nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>discount_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên Sự kiện Giảm giá</td>
+        </tr>
+        <tr>
+          <td class='field'>discount_amount</td>
+          <td>DOUBLE</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>% giảm giá hoặc số tiền giảm giá cụ thể</td>
+        </tr>
+        <tr>
+          <td class='field'>is_fixed</td>
+          <td>BIT(1)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>b'0'</td>
+          <td>#True(1): giảm giá theo số tiền cụ thể; #False(0) giảm giá theo %</td>
+        </tr>
+        <tr>
+          <td class='field'>start_date</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'0000-00-00 00:00:00'</td>
+          <td>Ngày bắt đầu Giảm giá</td>
+        </tr>
+        <tr>
+          <td class='field'>end_date</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'0000-00-00 00:00:00'</td>
+          <td>Ngày kết thúc Giảm giá</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_product_images'>
+        <caption>shop_product_images</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Hình ảnh liên quan của Sản phẩm (1 Sản phẩm nên chụp nhiều góc cạnh
+            để
+            Khách hàng có cái nhìn khách quan)</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Thuộc sản phẩm nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ảnh sản phẩm</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_product_reviews'>
+        <caption>shop_product_reviews</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu các Đánh giá về Sản phẩm</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Sản phẩm nào được Đánh giá?</td>
+        </tr>
+        <tr>
+          <td class='field'>customer_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Khách hàng nào đánh giá?</td>
+        </tr>
+        <tr>
+          <td class='field'>rating</td>
+          <td>FLOAT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Số điểm đánh giá: từ 0 -&gt; 5 sao</td>
+        </tr>
+        <tr>
+          <td class='field'>comment</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Nội dung Đánh giá</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_product_vouchers'>
+        <caption>shop_product_vouchers</caption>
+        <tr>
+          <td colspan='12'>Table lưu thông tin Sản phẩm nào được áp dụng Voucher nào?</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>product_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Sản phẩm nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>voucher_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#voucher'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Voucher nào áp dụng?</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_products'>
+        <caption>shop_products</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Sản phẩm</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>product_code</td>
+          <td>VARCHAR(25)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã sản phẩm</td>
+        </tr>
+        <tr>
+          <td class='field'>product_name</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên sản phẩm</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>short_description</td>
+          <td>VARCHAR(250)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mô tả ngắn</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mô tả</td>
+        </tr>
+        <tr>
+          <td class='field'>standard_cost</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Giá nhập</td>
+        </tr>
+        <tr>
+          <td class='field'>list_price</td>
+          <td>DECIMAL(19,4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0.0000</td>
+          <td>Giá niêm yết (giá bán)</td>
+        </tr>
+        <tr>
+          <td class='field'>quantity_per_unit</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Số lượng hiện có của mỗi Sản phẩm (số lượng thực có trong kho)</td>
+        </tr>
+        <tr>
+          <td class='field'>discontinued</td>
+          <td>TINYINT(4)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Xác định Sản phẩm này là Ngưng bán?</td>
+        </tr>
+        <tr>
+          <td class='field'>is_featured</td>
+          <td>BIT(1)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>b'0'</td>
+          <td>Có phải là Sản phẩm nổi bật không?</td>
+        </tr>
+        <tr>
+          <td class='field'>is_new</td>
+          <td>BIT(1)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>b'0'</td>
+          <td>Có phải là Sản phẩm mới nhập về không?</td>
+        </tr>
+        <tr>
+          <td class='field'>category_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#category'>&#10004;</a></td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Thuộc chuyên mục nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>supplier_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#supplier'>&#10004;</a></td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Thuộc nhà cung cấp nào?</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_settings'>
+        <caption>shop_settings</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Cấu hình sử dụng trong Hệ thống</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>group</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Phân nhóm Cấu hình</td>
+        </tr>
+        <tr>
+          <td class='field'>key</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã Cấu hình</td>
+        </tr>
+        <tr>
+          <td class='field'>value</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Giá trị Cấu hình</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Diễn giải về Cấu hình</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_stores'>
+        <caption>shop_stores</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về Kho hàng</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>store_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã kho</td>
+        </tr>
+        <tr>
+          <td class='field'>store_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên kho</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_suppliers'>
+        <caption>shop_suppliers</caption>
+        <tr>
+          <td colspan='12'>Bảng chứa dữ liệu về các Nhà cung cấp</td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>supplier_code</td>
+          <td>VARCHAR(50)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã nhà cung cấp</td>
+        </tr>
+        <tr>
+          <td class='field'>supplier_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên nhà cung cấp</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>image</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ảnh đại diện</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+      <table class="table table-responsive" id='shop_vouchers'>
+        <caption>shop_vouchers</caption>
+        <tr>
+          <td colspan='12'>Table lưu thông tin Danh sách các phiếu Khuyến mãi, Giảm giá. Thông thường:<br />1. Voucher
+            (phiếu khuyến mãi): giảm theo số tiền cụ thể<br />2. Coupon (phiếu giảm giá %): thường giảm theo % giá trị
+            đơn
+            hàng<br /></td>
+        </tr>
+        <tr>
+          <th>Column name</th>
+          <th>DataType</th>
+          <th><abbr title='Primary Key'>PK</abbr></th>
+          <th><abbr title='Foreign Key'>FK</abbr></th>
+          <th><abbr title='Not Null'>NN</abbr></th>
+          <th><abbr title='Unique'>UQ</abbr></th>
+          <th><abbr title='Binary'>BIN</abbr></th>
+          <th><abbr title='Unsigned'>UN</abbr></th>
+          <th><abbr title='Zero Fill'>ZF</abbr></th>
+          <th><abbr title='Auto Increment'>AI</abbr></th>
+          <th>Default</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class='field'>id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td></td>
+          <td>Khóa chính</td>
+        </tr>
+        <tr>
+          <td class='field'>voucher_code</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Mã voucher</td>
+        </tr>
+        <tr>
+          <td class='field'>voucher_name</td>
+          <td>VARCHAR(500)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Tên voucher</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Mô tả voucher</td>
+        </tr>
+        <tr>
+          <td class='field'>uses</td>
+          <td>INT(10)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Số lượng voucher đã sử dụng</td>
+        </tr>
+        <tr>
+          <td class='field'>max_uses</td>
+          <td>INT(10)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Số lượng tối đa voucher có thể sử dụng. Nếu =0 là không xác định</td>
+        </tr>
+        <tr>
+          <td class='field'>max_uses_user</td>
+          <td>INT(10)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>Người dùng có thể sử dụng voucher này bao nhiêu lần? Nếu =0 là không xác định</td>
+        </tr>
+        <tr>
+          <td class='field'>type</td>
+          <td>TINYINT(3)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>1</td>
+          <td>Loại voucher: #1: voucher, #2: coupon</td>
+        </tr>
+        <tr>
+          <td class='field'>discount_amount</td>
+          <td>DOUBLE</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>0</td>
+          <td>% giảm giá hoặc số tiền giảm giá cụ thể</td>
+        </tr>
+        <tr>
+          <td class='field'>is_fixed</td>
+          <td>BIT(1)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>b'1'</td>
+          <td>#True(1): giảm giá theo số tiền cụ thể; #False(0): giảm giá theo %</td>
+        </tr>
+        <tr>
+          <td class='field'>start_date</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'0000-00-00 00:00:00'</td>
+          <td>Ngày bắt đầu voucher</td>
+        </tr>
+        <tr>
+          <td class='field'>end_date</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>'0000-00-00 00:00:00'</td>
+          <td>Ngày kết thúc voucher</td>
+        </tr>
+        <tr>
+          <td class='field'>created_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày tạo mới</td>
+        </tr>
+        <tr>
+          <td class='field'>updated_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày cập nhật</td>
+        </tr>
+        <tr>
+          <td class='field'>deleted_at</td>
+          <td>TIMESTAMP</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Ngày xóa</td>
+        </tr>
+      </table>
+      <hr class="break-border" />
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h2 id="mohinh-er">Mô hình ER</h2>
+        <img src="netashop_advanced_v1.1_ER.png" class="img-fluid mohinh-er" />
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="row">
+        <div class="col text-center">
+          ❤🧡💛💚💙💜 &reg; Bản quyền bởi <a href="https://nentang.vn" target="_blank">NenTang.vn</a> ❤🧡💛💚💙💜
+          <br />
+          Xem thêm các Kiến thức Nền tảng về Học tập Lập trình tại <a href="https://nentang.vn" target="_blank">https://nentang.vn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
