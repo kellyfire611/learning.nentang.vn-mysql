@@ -1,58 +1,57 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.0.0.5919
+-- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- Dumping database structure for netashop
-CREATE DATABASE IF NOT EXISTS `netashop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+CREATE DATABASE IF NOT EXISTS `netashop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `netashop`;
 
 -- Dumping structure for table netashop.acl_permissions
 CREATE TABLE IF NOT EXISTS `acl_permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Quyền',
-  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Tên Quyền thân thiện (dễ hiểu cho người dùng)',
-  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên guard bảo vệ',
+  `name` varchar(500) NOT NULL COMMENT 'Tên Quyền',
+  `display_name` varchar(500) DEFAULT NULL COMMENT 'Tên Quyền thân thiện (dễ hiểu cho người dùng)',
+  `guard_name` varchar(500) NOT NULL COMMENT 'Tên guard bảo vệ',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về Quyền';
 
 -- Dumping data for table netashop.acl_permissions: ~2 rows (approximately)
-/*!40000 ALTER TABLE `acl_permissions` DISABLE KEYS */;
 INSERT INTO `acl_permissions` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(1, 'backend-view', 'Xem chức năng Quản trị Hệ thống', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(2, 'suppliers-view', 'Xem chức năng Nhà cung cấp', 'web', '2020-02-12 16:29:29', NULL);
-/*!40000 ALTER TABLE `acl_permissions` ENABLE KEYS */;
+	(1, 'backend-view', 'Xem chức năng Quản trị Hệ thống', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(2, 'suppliers-view', 'Xem chức năng Nhà cung cấp', 'web', '2020-02-12 09:29:29', NULL);
 
 -- Dumping structure for table netashop.acl_roles
 CREATE TABLE IF NOT EXISTS `acl_roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Vai trò',
-  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Tên Vai trò thân thiện (dễ hiểu với người dùng)',
-  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên guard bảo vệ',
+  `name` varchar(500) NOT NULL COMMENT 'Tên Vai trò',
+  `display_name` varchar(500) DEFAULT NULL COMMENT 'Tên Vai trò thân thiện (dễ hiểu với người dùng)',
+  `guard_name` varchar(500) NOT NULL COMMENT 'Tên guard bảo vệ',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về Vai trò';
 
 -- Dumping data for table netashop.acl_roles: ~4 rows (approximately)
-/*!40000 ALTER TABLE `acl_roles` DISABLE KEYS */;
 INSERT INTO `acl_roles` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(1, 'administrator', 'Quản trị Hệ thống', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(2, 'thukho', 'Thủ kho', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(3, 'ketoan', 'Kế toán', 'web', '2020-02-17 15:58:13', '2020-02-17 15:58:15'),
-	(4, 'customer', 'Khách hàng', 'web', '2020-02-17 14:09:53', '2020-02-17 14:09:56');
-/*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
+	(1, 'administrator', 'Quản trị Hệ thống', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(2, 'thukho', 'Thủ kho', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(3, 'ketoan', 'Kế toán', 'web', '2020-02-17 08:58:13', '2020-02-17 08:58:15'),
+	(4, 'customer', 'Khách hàng', 'web', '2020-02-17 07:09:53', '2020-02-17 07:09:56');
 
 -- Dumping structure for table netashop.acl_role_has_permissions
 CREATE TABLE IF NOT EXISTS `acl_role_has_permissions` (
@@ -66,36 +65,34 @@ CREATE TABLE IF NOT EXISTS `acl_role_has_permissions` (
   CONSTRAINT `FK_acl_role_has_permissions_acl_roles` FOREIGN KEY (`role_id`) REFERENCES `acl_roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu xác định Vai trò nào <-> Có những Quyền nào?';
 
--- Dumping data for table netashop.acl_role_has_permissions: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_role_has_permissions` DISABLE KEYS */;
+-- Dumping data for table netashop.acl_role_has_permissions: ~1 rows (approximately)
 INSERT INTO `acl_role_has_permissions` (`id`, `role_id`, `permission_id`) VALUES
 	(1, 1, 1);
-/*!40000 ALTER TABLE `acl_role_has_permissions` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.acl_users
 CREATE TABLE IF NOT EXISTS `acl_users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
-  `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: user@123)',
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  `username` varchar(191) NOT NULL COMMENT 'Tên đăng nhập',
+  `password` varchar(500) NOT NULL COMMENT 'Mật khẩu (mặc định: user@123)',
+  `last_name` varchar(255) NOT NULL COMMENT 'Họ và tên lót',
+  `first_name` varchar(255) NOT NULL COMMENT 'Tên',
   `gender` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT 'Giới tính: #0: Nam; #1: Nữ',
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email',
+  `email` varchar(191) NOT NULL COMMENT 'Email',
   `birthday` datetime DEFAULT NULL COMMENT 'Ngày sinh',
-  `avatar` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Hình đại diện',
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã CMND / CCCD',
-  `job_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Chức danh',
-  `department` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Phòng',
+  `avatar` varchar(500) DEFAULT NULL COMMENT 'Hình đại diện',
+  `code` varchar(255) DEFAULT NULL COMMENT 'Mã CMND / CCCD',
+  `job_title` varchar(255) DEFAULT NULL COMMENT 'Chức danh',
+  `department` varchar(255) DEFAULT NULL COMMENT 'Phòng',
   `manager_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Người phụ trách Quản lý',
-  `phone` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số điện thoại',
-  `address1` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ 1',
-  `address2` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ 2',
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Thành phố',
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Bang',
-  `postal_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã bưu chính',
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Quốc gia',
-  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Token ghi nhớ Đăng nhập',
-  `active_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã kích hoạt',
+  `phone` varchar(25) DEFAULT NULL COMMENT 'Số điện thoại',
+  `address1` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ 1',
+  `address2` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ 2',
+  `city` varchar(255) DEFAULT NULL COMMENT 'Thành phố',
+  `state` varchar(255) DEFAULT NULL COMMENT 'Bang',
+  `postal_code` varchar(15) DEFAULT NULL COMMENT 'Mã bưu chính',
+  `country` varchar(255) DEFAULT NULL COMMENT 'Quốc gia',
+  `remember_token` varchar(255) DEFAULT NULL COMMENT 'Token ghi nhớ Đăng nhập',
+  `active_code` varchar(255) DEFAULT NULL COMMENT 'Mã kích hoạt',
   `status` tinyint(4) DEFAULT NULL COMMENT 'Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
@@ -105,9 +102,8 @@ CREATE TABLE IF NOT EXISTS `acl_users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về Người dùng trong Hệ thống';
 
 -- Dumping data for table netashop.acl_users: ~21 rows (approximately)
-/*!40000 ALTER TABLE `acl_users` DISABLE KEYS */;
 INSERT INTO `acl_users` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `job_title`, `department`, `manager_id`, `phone`, `address1`, `address2`, `city`, `state`, `postal_code`, `country`, `remember_token`, `active_code`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'dnpcuong', 'a29c57c6894dee6e8251510d58c07078ee3f49bf', 'Dương Nguyễn Phú', 'Cường', 0, 'phucuong@ctu.edu.vn', NULL, 'avatars/dnpcuong_20200217161415.jpg', NULL, 'Developer', 'CUSC Software', NULL, '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều', NULL, 'Cần Thơ', NULL, '64000', 'Vietnam', NULL, NULL, NULL, '2020-02-12 16:17:49', NULL),
+	(1, 'dnpcuong', 'a29c57c6894dee6e8251510d58c07078ee3f49bf', 'Dương Nguyễn Phú', 'Cường', 0, 'phucuong@ctu.edu.vn', NULL, 'avatars/dnpcuong_20200217161415.jpg', NULL, 'Developer', 'CUSC Software', NULL, '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều', NULL, 'Cần Thơ', NULL, '64000', 'Vietnam', NULL, NULL, NULL, '2020-02-12 09:17:49', NULL),
 	(201, 'user1', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Harris', 'George', 0, 'gharris0@pagesperso-orange.fr', NULL, 'avatars/logo-nentang.jpg', NULL, 'Administrative Assistant I', 'Toys', NULL, '1-(210)270-8536', '2 Bayside Drive', NULL, 'San Antonio', 'Texas', '78240', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(202, 'user2', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Hayes', 'Rachel', 0, 'rhayes1@si.edu', NULL, 'avatars/logo-nentang.jpg', NULL, 'Design Engineer', 'Books', NULL, '1-(971)797-2729', '30 Anhalt Street', NULL, 'Portland', 'Oregon', '97232', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(203, 'user3', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Palmer', 'Anthony', 1, 'apalmer2@posterous.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Health Coach II', 'Toys', NULL, '1-(702)984-2108', '02809 4th Pass', NULL, 'North Las Vegas', 'Nevada', '89036', 'United States', NULL, NULL, NULL, NULL, NULL),
@@ -128,7 +124,6 @@ INSERT INTO `acl_users` (`id`, `username`, `password`, `last_name`, `first_name`
 	(218, 'user18', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Jenkins', 'Frances', 0, 'fjenkinsh@huffingtonpost.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Developer IV', 'Baby', NULL, '1-(512)764-3809', '69255 Dakota Plaza', NULL, 'Austin', 'Texas', '78769', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(219, 'user19', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Myers', 'Roger', 0, 'rmyersi@alexa.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Account Executive', 'Beauty', NULL, '1-(480)583-9583', '3 Eagle Crest Place', NULL, 'Gilbert', 'Arizona', '85297', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(220, 'user20', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Hunter', 'Bonnie', 1, 'bhunterj@ucsd.edu', NULL, 'avatars/logo-nentang.jpg', NULL, 'Analog Circuit Design manager', 'Baby', NULL, '1-(320)933-5140', '99 Arapahoe Terrace', NULL, 'Saint Cloud', 'Minnesota', '56372', 'United States', NULL, NULL, NULL, NULL, NULL);
-/*!40000 ALTER TABLE `acl_users` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.acl_user_has_permissions
 CREATE TABLE IF NOT EXISTS `acl_user_has_permissions` (
@@ -143,8 +138,6 @@ CREATE TABLE IF NOT EXISTS `acl_user_has_permissions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu xác định Người dùng nào <-> Có những Quyền nào?';
 
 -- Dumping data for table netashop.acl_user_has_permissions: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_user_has_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `acl_user_has_permissions` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.acl_user_has_roles
 CREATE TABLE IF NOT EXISTS `acl_user_has_roles` (
@@ -159,16 +152,14 @@ CREATE TABLE IF NOT EXISTS `acl_user_has_roles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu xác định Người dùng nào <-> Có những Vai trò nào?';
 
 -- Dumping data for table netashop.acl_user_has_roles: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_user_has_roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `acl_user_has_roles` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_categories
 CREATE TABLE IF NOT EXISTS `shop_categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `category_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã chuyên mục',
-  `category_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chuyên mục',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `category_code` varchar(50) NOT NULL COMMENT 'Mã chuyên mục',
+  `category_name` varchar(500) NOT NULL COMMENT 'Tên chuyên mục',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -176,36 +167,34 @@ CREATE TABLE IF NOT EXISTS `shop_categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Chuyên mục (dùng để phân loại/phân nhóm Sản phẩm)';
 
 -- Dumping data for table netashop.shop_categories: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_categories` DISABLE KEYS */;
 INSERT INTO `shop_categories` (`id`, `category_code`, `category_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 'CAT1', 'Laptop', 'All laptop products', 'categories/laptop_20200217170111.jpg', NULL, NULL),
 	(2, 'CAT2', 'Phone', 'All phones', 'categories/phone_20200217170111.jpg', NULL, NULL),
 	(3, 'CAT3', 'Camera', 'PhotographCamera', 'categories/camera_20200217170111.jpg', NULL, NULL),
 	(4, 'CAT4', 'Tablet', 'Tablet', 'categories/tablet_20200217170111.jpg', NULL, NULL);
-/*!40000 ALTER TABLE `shop_categories` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_customers
 CREATE TABLE IF NOT EXISTS `shop_customers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
-  `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  `username` varchar(191) NOT NULL COMMENT 'Tên đăng nhập',
+  `password` varchar(500) NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
+  `last_name` varchar(255) NOT NULL COMMENT 'Họ và tên lót',
+  `first_name` varchar(255) NOT NULL COMMENT 'Tên',
   `gender` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Giới tính: #0: Nam; #1: Nữ',
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email',
+  `email` varchar(191) NOT NULL COMMENT 'Email',
   `birthday` datetime DEFAULT NULL COMMENT 'Ngày sinh',
-  `avatar` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã CMND / CCCD',
-  `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Công ty',
-  `phone` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số điện thoại',
-  `billing_address` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ Thanh toán',
-  `shipping_address` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ Giao hàng',
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Thành phố',
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Bang',
-  `postal_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã bưu chính',
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Quốc gia',
-  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Token ghi nhớ đăng nhập',
-  `activate_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã kích hoạt',
+  `avatar` varchar(500) DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `code` varchar(255) NOT NULL COMMENT 'Mã CMND / CCCD',
+  `company` varchar(255) DEFAULT NULL COMMENT 'Công ty',
+  `phone` varchar(25) DEFAULT NULL COMMENT 'Số điện thoại',
+  `billing_address` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ Thanh toán',
+  `shipping_address` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ Giao hàng',
+  `city` varchar(255) DEFAULT NULL COMMENT 'Thành phố',
+  `state` varchar(255) DEFAULT NULL COMMENT 'Bang',
+  `postal_code` varchar(15) DEFAULT NULL COMMENT 'Mã bưu chính',
+  `country` varchar(255) DEFAULT NULL COMMENT 'Quốc gia',
+  `remember_token` varchar(255) DEFAULT NULL COMMENT 'Token ghi nhớ đăng nhập',
+  `activate_code` varchar(255) DEFAULT NULL COMMENT 'Mã kích hoạt',
   `status` tinyint(4) DEFAULT NULL COMMENT 'Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
@@ -215,9 +204,8 @@ CREATE TABLE IF NOT EXISTS `shop_customers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về Khách hàng';
 
 -- Dumping data for table netashop.shop_customers: ~101 rows (approximately)
-/*!40000 ALTER TABLE `shop_customers` DISABLE KEYS */;
 INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `company`, `phone`, `billing_address`, `shipping_address`, `city`, `state`, `postal_code`, `country`, `remember_token`, `activate_code`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 20:31:30', '2020-02-23 20:31:30'),
+	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 13:31:30', '2020-02-23 13:31:30'),
 	(2, 'customer2', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Cooper', 'Emily', 0, 'ecooper1@macromedia.com', NULL, '', '', 'Skippad', '1-(251)614-5034', '60 Forster Crossing', NULL, 'Mobile', 'Alabama', '36605', 'United States', NULL, NULL, 1, NULL, NULL),
 	(3, 'customer3', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Wilson', 'George', 0, 'gwilson2@xinhuanet.com', NULL, '', '', 'Riffpath', '1-(901)445-9881', '52 Browning Center', NULL, 'Memphis', 'Tennessee', '38181', 'United States', NULL, NULL, 1, NULL, NULL),
 	(4, 'customer4', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Mcdonald', 'Michael', 0, 'mmcdonald3@twitter.com', NULL, '', '', 'Feedfire', '1-(419)743-7314', '85093 Jackson Park', NULL, 'Toledo', 'Ohio', '43610', 'United States', NULL, NULL, 1, NULL, NULL),
@@ -317,8 +305,7 @@ INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_
 	(98, 'customer98', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Parker', 'Emily', 0, 'eparker2p@4shared.com', NULL, '', '', 'Skalith', '1-(330)637-4894', '0 Old Shore Center', NULL, 'Akron', 'Ohio', '44310', 'United States', NULL, NULL, 1, NULL, NULL),
 	(99, 'customer99', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Chavez', 'Jeremy', 0, 'jchavez2q@businessweek.com', NULL, '', '', 'Topicware', '1-(515)769-2045', '8584 Jay Street', NULL, 'Des Moines', 'Iowa', '50335', 'United States', NULL, NULL, 1, NULL, NULL),
 	(100, 'customer100', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Kim', 'Pamela', 0, 'pkim2r@stumbleupon.com', NULL, '', '', 'Photolist', '1-(510)144-4318', '3688 Gerald Trail', NULL, 'Sacramento', 'California', '95823', 'United States', NULL, NULL, 1, NULL, NULL),
-	(104, 'nentangtoituonglai@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Phú', 'CUONG', 0, 'nentangtoituonglai@gmail.com', '1989-06-11 00:00:00', NULL, '362209685', 'NenTang', '0915659223', '130 Xo Viet Nghe Tinh', '130 Xo Viet Nghe Tinh', 'Quan Ninh Kieu', 'Cần Thơ', '94000', 'Việt Nam', NULL, 'bb455ad0491e4804fee04f78f54be4967b8087e0', 1, '2020-02-21 23:28:28', NULL);
-/*!40000 ALTER TABLE `shop_customers` ENABLE KEYS */;
+	(104, 'nentangtoituonglai@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Phú', 'CUONG', 0, 'nentangtoituonglai@gmail.com', '1989-06-11 00:00:00', NULL, '362209685', 'NenTang', '0915659223', '130 Xo Viet Nghe Tinh', '130 Xo Viet Nghe Tinh', 'Quan Ninh Kieu', 'Cần Thơ', '94000', 'Việt Nam', NULL, 'bb455ad0491e4804fee04f78f54be4967b8087e0', 1, '2020-02-21 16:28:28', NULL);
 
 -- Dumping structure for table netashop.shop_customer_vouchers
 CREATE TABLE IF NOT EXISTS `shop_customer_vouchers` (
@@ -334,11 +321,9 @@ CREATE TABLE IF NOT EXISTS `shop_customer_vouchers` (
   CONSTRAINT `FK_shop_customer_vouchers_shop_vouchers` FOREIGN KEY (`voucher_id`) REFERENCES `shop_vouchers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Table lưu thông tin Khách hàng nào được áp dụng Voucher nào?\r\nCó thể lập danh sách Khách hàng bằng cách:\r\n- Tạo chức năng tự động tạo Voucher cho Khách hàng thân thiết (mua nhiều hàng hóa trong năm, ...) khi đến sinh nhật của họ.\r\n- Người thân của Giám đốc ;)';
 
--- Dumping data for table netashop.shop_customer_vouchers: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_customer_vouchers` DISABLE KEYS */;
+-- Dumping data for table netashop.shop_customer_vouchers: ~1 rows (approximately)
 INSERT INTO `shop_customer_vouchers` (`id`, `customer_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
-	(1, 1, 2, '2020-02-17 16:08:01', NULL);
-/*!40000 ALTER TABLE `shop_customer_vouchers` ENABLE KEYS */;
+	(1, 1, 2, '2020-02-17 09:08:01', NULL);
 
 -- Dumping structure for table netashop.shop_exports
 CREATE TABLE IF NOT EXISTS `shop_exports` (
@@ -346,18 +331,20 @@ CREATE TABLE IF NOT EXISTS `shop_exports` (
   `store_id` bigint(20) unsigned NOT NULL COMMENT 'Xuất từ kho hàng nào?',
   `employee_id` bigint(20) unsigned NOT NULL COMMENT 'Nhân viên nào lập phiếu xuất?',
   `export_date` datetime NOT NULL COMMENT 'Ngày Xuất kho',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải, ghi chú xuất hàng',
+  `order_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Xuất cho đơn hàng nào?',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_shop_exports_acl_users` (`employee_id`) USING BTREE,
   KEY `FK_shop_exports_shop_stores` (`store_id`) USING BTREE,
+  KEY `FK_shop_exports_shop_orders` (`order_id`),
   CONSTRAINT `FK_shop_exports_acl_users` FOREIGN KEY (`employee_id`) REFERENCES `acl_users` (`id`),
+  CONSTRAINT `FK_shop_exports_shop_orders` FOREIGN KEY (`order_id`) REFERENCES `shop_orders` (`id`),
   CONSTRAINT `FK_shop_exports_shop_stores` FOREIGN KEY (`store_id`) REFERENCES `shop_stores` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Bảng chứa dữ liệu về các Phiếu Xuất';
 
 -- Dumping data for table netashop.shop_exports: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_exports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_exports` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_export_details
 CREATE TABLE IF NOT EXISTS `shop_export_details` (
@@ -366,16 +353,17 @@ CREATE TABLE IF NOT EXISTS `shop_export_details` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào xuất đi?',
   `quantity` decimal(18,4) NOT NULL DEFAULT 0.0000 COMMENT 'Số lượng xuất',
   `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Đơn giá xuất',
+  `import_detail_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Xuất từ chi tiết nhập kho nào?',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_shop_export_details_shop_exports` (`export_id`) USING BTREE,
   KEY `FK_shop_export_details_shop_products` (`product_id`) USING BTREE,
+  KEY `FK_shop_export_details_shop_import_details` (`import_detail_id`),
   CONSTRAINT `FK_shop_export_details_shop_exports` FOREIGN KEY (`export_id`) REFERENCES `shop_exports` (`id`),
+  CONSTRAINT `FK_shop_export_details_shop_import_details` FOREIGN KEY (`import_detail_id`) REFERENCES `shop_import_details` (`id`),
   CONSTRAINT `FK_shop_export_details_shop_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Sản phẩm được nhập trong Phiếu Nhập';
 
 -- Dumping data for table netashop.shop_export_details: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_export_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_export_details` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_imports
 CREATE TABLE IF NOT EXISTS `shop_imports` (
@@ -393,8 +381,6 @@ CREATE TABLE IF NOT EXISTS `shop_imports` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Bảng chứa dữ liệu về các Phiếu Nhập';
 
 -- Dumping data for table netashop.shop_imports: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_imports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_imports` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_import_details
 CREATE TABLE IF NOT EXISTS `shop_import_details` (
@@ -411,8 +397,6 @@ CREATE TABLE IF NOT EXISTS `shop_import_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Sản phẩm được nhập trong Phiếu Nhập';
 
 -- Dumping data for table netashop.shop_import_details: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_import_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_import_details` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_orders
 CREATE TABLE IF NOT EXISTS `shop_orders` (
@@ -421,17 +405,17 @@ CREATE TABLE IF NOT EXISTS `shop_orders` (
   `customer_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc khách hàng nào?',
   `order_date` datetime NOT NULL COMMENT 'Ngày tạo Đơn hàng',
   `shipped_date` datetime DEFAULT NULL COMMENT 'Ngày giao hàng',
-  `ship_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ tên Người giao hàng',
-  `ship_address1` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Địa chỉ 1',
-  `ship_address2` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Địa chỉ 2',
-  `ship_city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Thành phố',
-  `ship_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Bang',
-  `ship_postal_code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Mã bưu chính',
-  `ship_country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Quốc gia',
+  `ship_name` varchar(50) NOT NULL COMMENT 'Họ tên Người giao hàng',
+  `ship_address1` varchar(500) NOT NULL COMMENT 'Giao hàng đến Địa chỉ 1',
+  `ship_address2` varchar(500) DEFAULT NULL COMMENT 'Giao hàng đến Địa chỉ 2',
+  `ship_city` varchar(255) NOT NULL COMMENT 'Giao hàng đến Thành phố',
+  `ship_state` varchar(255) DEFAULT NULL COMMENT 'Giao hàng đến Bang',
+  `ship_postal_code` varchar(50) DEFAULT NULL COMMENT 'Giao hàng đến Mã bưu chính',
+  `ship_country` varchar(255) NOT NULL COMMENT 'Giao hàng đến Quốc gia',
   `shipping_fee` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Phí giao hàng',
   `payment_type_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Phương thức Thanh toán nào?',
   `paid_date` datetime DEFAULT NULL COMMENT 'Ngày thanh toán',
-  `order_status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Trạng thái: #New: mới tạo Đơn hàng -> #On Hold: đang xử lý -> #Shipped: đã giao hàng -> #Complete: đã hoàn tất đơn hàng (khách đã thanh toán và nhận hàng xong)',
+  `order_status` varchar(50) NOT NULL COMMENT 'Trạng thái: #New: mới tạo Đơn hàng -> #On Hold: đang xử lý -> #Shipped: đã giao hàng -> #Complete: đã hoàn tất đơn hàng (khách đã thanh toán và nhận hàng xong)',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -444,7 +428,6 @@ CREATE TABLE IF NOT EXISTS `shop_orders` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Đơn hàng';
 
 -- Dumping data for table netashop.shop_orders: ~600 rows (approximately)
-/*!40000 ALTER TABLE `shop_orders` DISABLE KEYS */;
 INSERT INTO `shop_orders` (`id`, `employee_id`, `customer_id`, `order_date`, `shipped_date`, `ship_name`, `ship_address1`, `ship_address2`, `ship_city`, `ship_state`, `ship_postal_code`, `ship_country`, `shipping_fee`, `payment_type_id`, `paid_date`, `order_status`, `created_at`, `updated_at`) VALUES
 	(4001, 204, 40, '2016-04-05 00:00:00', '2016-11-06 00:00:00', 'Jean Fuller', '93 Spohn Place', NULL, 'Manggekompo', NULL, NULL, 'Indonesia', 8.1400, 1, '2016-10-12 00:00:00', 'On Hold', NULL, NULL),
 	(4002, 204, 95, '2017-01-29 00:00:00', '2016-05-28 00:00:00', 'Diane Holmes', '46 Eliot Trail', NULL, 'Virginia Beach', 'Virginia', '23459', 'United States', 1.5500, 3, '2016-06-27 00:00:00', 'Shipped', NULL, NULL),
@@ -1046,7 +1029,6 @@ INSERT INTO `shop_orders` (`id`, `employee_id`, `customer_id`, `order_date`, `sh
 	(4598, 212, 76, '2016-04-13 00:00:00', '2016-08-10 00:00:00', 'Eugene Kelly', '838 Becker Plaza', NULL, 'Laredo', 'Texas', '78044', 'United States', 4.9000, 3, '2016-10-23 00:00:00', 'New', NULL, NULL),
 	(4599, 208, 29, '2016-04-16 00:00:00', '2016-05-15 00:00:00', 'Jimmy Mcdonald', '0 Dayton Place', NULL, 'Rochester', 'New York', '14646', 'United States', 1.5600, 3, '2017-01-14 00:00:00', 'Complete', NULL, NULL),
 	(4600, 208, 2, '2016-04-26 00:00:00', '2016-04-06 00:00:00', 'Stephen Jacobs', '7131 Scoville Terrace', NULL, 'Phoenix', 'Arizona', '85020', 'United States', 4.5200, 4, '2017-01-22 00:00:00', 'On Hold', NULL, NULL);
-/*!40000 ALTER TABLE `shop_orders` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_order_details
 CREATE TABLE IF NOT EXISTS `shop_order_details` (
@@ -1057,7 +1039,7 @@ CREATE TABLE IF NOT EXISTS `shop_order_details` (
   `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá bán của Sản phẩm trong Đơn hàng',
   `discount_percentage` float NOT NULL DEFAULT 0 COMMENT 'Giảm giá theo % từng Sản phẩm trong Đơn hàng',
   `discount_amout` double NOT NULL DEFAULT 0 COMMENT 'Giảm giá theo Số tiền cụ thể cho từng Sản phẩm trong Đơn hàng',
-  `order_detail_status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Trạng thái của từng Sản phẩm trong Đơn hàng',
+  `order_detail_status` varchar(50) DEFAULT NULL COMMENT 'Trạng thái của từng Sản phẩm trong Đơn hàng',
   `date_allocated` datetime DEFAULT NULL COMMENT 'Ngày Sản phẩm này đã chuyển đến tay Khách hàng',
   PRIMARY KEY (`id`),
   KEY `FK_shop_order_details_shop_orders` (`order_id`),
@@ -1067,7 +1049,6 @@ CREATE TABLE IF NOT EXISTS `shop_order_details` (
 ) ENGINE=InnoDB AUTO_INCREMENT=701 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Sản phẩm đã mua trong Đơn hàng';
 
 -- Dumping data for table netashop.shop_order_details: ~700 rows (approximately)
-/*!40000 ALTER TABLE `shop_order_details` DISABLE KEYS */;
 INSERT INTO `shop_order_details` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`, `discount_percentage`, `discount_amout`, `order_detail_status`, `date_allocated`) VALUES
 	(1, 4001, 608, 1.0000, 6234000.0000, 8.73, 0, 'Allocated', '2017-01-15 00:00:00'),
 	(2, 4001, 609, 2.0000, 8183000.0000, 4.36, 0, 'No Stock', '2016-09-21 00:00:00'),
@@ -1769,15 +1750,14 @@ INSERT INTO `shop_order_details` (`id`, `order_id`, `product_id`, `quantity`, `u
 	(698, 4598, 603, 5.0000, 9384000.0000, 6.1, 0, 'No Stock', '2016-12-23 00:00:00'),
 	(699, 4599, 603, 9.0000, 9384000.0000, 6.68, 0, 'On Order', '2016-12-27 00:00:00'),
 	(700, 4600, 609, 5.0000, 8183000.0000, 8.87, 0, 'Allocated', '2016-06-16 00:00:00');
-/*!40000 ALTER TABLE `shop_order_details` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_payment_types
 CREATE TABLE IF NOT EXISTS `shop_payment_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `payment_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã hình thức thanh toán',
-  `payment_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên hình thức thanh toán',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `payment_code` varchar(50) NOT NULL COMMENT 'Mã hình thức thanh toán',
+  `payment_name` varchar(500) NOT NULL COMMENT 'Tên hình thức thanh toán',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -1785,24 +1765,22 @@ CREATE TABLE IF NOT EXISTS `shop_payment_types` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT COMMENT='Bảng chứa dữ liệu về các Phương thức Thanh toán';
 
 -- Dumping data for table netashop.shop_payment_types: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_payment_types` DISABLE KEYS */;
 INSERT INTO `shop_payment_types` (`id`, `payment_code`, `payment_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'CK', 'Chuyển khoản', NULL, NULL, '2020-02-24 00:33:13', '2020-02-24 00:33:13'),
-	(2, 'Paypal', 'Thanh toán Paypal', NULL, NULL, '2020-02-24 00:33:37', NULL),
-	(3, 'NHTT', 'Nhận hàng rồi trả tiền', NULL, NULL, '2020-02-24 00:33:58', NULL),
-	(4, 'TM', 'Tiền mặt', NULL, NULL, '2020-02-24 00:37:05', NULL);
-/*!40000 ALTER TABLE `shop_payment_types` ENABLE KEYS */;
+	(1, 'CK', 'Chuyển khoản', NULL, NULL, '2020-02-23 17:33:13', '2020-02-23 17:33:13'),
+	(2, 'Paypal', 'Thanh toán Paypal', NULL, NULL, '2020-02-23 17:33:37', NULL),
+	(3, 'NHTT', 'Nhận hàng rồi trả tiền', NULL, NULL, '2020-02-23 17:33:58', NULL),
+	(4, 'TM', 'Tiền mặt', NULL, NULL, '2020-02-23 17:37:05', NULL);
 
 -- Dumping structure for table netashop.shop_posts
 CREATE TABLE IF NOT EXISTS `shop_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `post_slug` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Đường dẫn của bài viết',
-  `post_title` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tiêu đề bài viết',
-  `post_content` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Nội dung bài viết',
-  `post_excerpt` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
-  `post_type` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post' COMMENT 'Loại bài viết: #1: bài viết, #2: trang cố định',
-  `post_status` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft' COMMENT 'Trạng thái bài viết: #draft: viết nháp; #publish: đăng lên trang web; ...',
-  `post_image` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện bài viết',
+  `post_slug` text NOT NULL DEFAULT '' COMMENT 'Đường dẫn của bài viết',
+  `post_title` text NOT NULL DEFAULT '' COMMENT 'Tiêu đề bài viết',
+  `post_content` mediumtext DEFAULT NULL COMMENT 'Nội dung bài viết',
+  `post_excerpt` mediumtext DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
+  `post_type` varchar(500) NOT NULL DEFAULT 'post' COMMENT 'Loại bài viết: #1: bài viết, #2: trang cố định',
+  `post_status` varchar(500) NOT NULL DEFAULT 'draft' COMMENT 'Trạng thái bài viết: #draft: viết nháp; #publish: đăng lên trang web; ...',
+  `post_image` mediumtext DEFAULT NULL COMMENT 'Ảnh đại diện bài viết',
   `user_id` bigint(20) unsigned NOT NULL COMMENT 'Tác giả bài viết',
   `post_category_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Thuộc chuyên mục nào?',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Ngày tạo mới',
@@ -1815,18 +1793,16 @@ CREATE TABLE IF NOT EXISTS `shop_posts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Bảng chứa dữ liệu về các Bài viết PR trên trang web';
 
 -- Dumping data for table netashop.shop_posts: ~1 rows (approximately)
-/*!40000 ALTER TABLE `shop_posts` DISABLE KEYS */;
 INSERT INTO `shop_posts` (`id`, `post_slug`, `post_title`, `post_content`, `post_excerpt`, `post_type`, `post_status`, `post_image`, `user_id`, `post_category_id`, `created_at`, `updated_at`) VALUES
-	(1, 'chinh-sach', 'Chính sách sử dụng', 'Nội dung về Chính sách sử dụng của Hệ thống', 'Tóm tắt ngắn gọn về Chính sách', 'post', 'draft', NULL, 1, 2, '2021-05-16 02:07:08', NULL);
-/*!40000 ALTER TABLE `shop_posts` ENABLE KEYS */;
+	(1, 'chinh-sach', 'Chính sách sử dụng', 'Nội dung về Chính sách sử dụng của Hệ thống', 'Tóm tắt ngắn gọn về Chính sách', 'post', 'draft', NULL, 1, 2, '2021-05-15 19:07:08', NULL);
 
 -- Dumping structure for table netashop.shop_post_categories
 CREATE TABLE IF NOT EXISTS `shop_post_categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `post_category_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã chuyên mục',
-  `post_category_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chuyên mục',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `post_category_code` varchar(50) NOT NULL COMMENT 'Mã chuyên mục',
+  `post_category_name` varchar(500) NOT NULL COMMENT 'Tên chuyên mục',
+  `description` mediumtext DEFAULT NULL COMMENT 'Diễn giải',
+  `image` mediumtext DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -1834,24 +1810,22 @@ CREATE TABLE IF NOT EXISTS `shop_post_categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Bảng chứa dữ liệu về các Chuyên mục (dùng để phân loại/phân nhóm các Bài viết/Trang)';
 
 -- Dumping data for table netashop.shop_post_categories: ~3 rows (approximately)
-/*!40000 ALTER TABLE `shop_post_categories` DISABLE KEYS */;
 INSERT INTO `shop_post_categories` (`id`, `post_category_code`, `post_category_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'tutorial', 'Hướng dẫn', 'Nhóm các bài viết về Hướng dẫn sử dụng Sản phẩm', NULL, '2021-05-16 02:04:14', NULL),
-	(2, 'policy', 'Chính sách - Điều khoản', 'Nhóm các bài viết về Chính sách, Điều khoản sử dụng của Hệ thống', NULL, '2021-05-16 02:05:33', NULL),
-	(3, 'marketing', 'Quảng cáo Marketing', 'Nhóm các bài viết về Quảng cáo, Marketing', NULL, '2021-05-16 02:06:04', NULL);
-/*!40000 ALTER TABLE `shop_post_categories` ENABLE KEYS */;
+	(1, 'tutorial', 'Hướng dẫn', 'Nhóm các bài viết về Hướng dẫn sử dụng Sản phẩm', NULL, '2021-05-15 19:04:14', NULL),
+	(2, 'policy', 'Chính sách - Điều khoản', 'Nhóm các bài viết về Chính sách, Điều khoản sử dụng của Hệ thống', NULL, '2021-05-15 19:05:33', NULL),
+	(3, 'marketing', 'Quảng cáo Marketing', 'Nhóm các bài viết về Quảng cáo, Marketing', NULL, '2021-05-15 19:06:04', NULL);
 
 -- Dumping structure for table netashop.shop_products
 CREATE TABLE IF NOT EXISTS `shop_products` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `product_code` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã sản phẩm',
-  `product_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên sản phẩm',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
-  `short_description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả ngắn',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả',
+  `product_code` varchar(25) NOT NULL COMMENT 'Mã sản phẩm',
+  `product_name` varchar(50) NOT NULL COMMENT 'Tên sản phẩm',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `short_description` varchar(250) DEFAULT NULL COMMENT 'Mô tả ngắn',
+  `description` text DEFAULT NULL COMMENT 'Mô tả',
   `standard_cost` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá nhập',
   `list_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá niêm yết (giá bán)',
-  `quantity_per_unit` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số lượng hiện có của mỗi Sản phẩm (số lượng thực có trong kho)',
+  `quantity_per_unit` varchar(50) DEFAULT NULL COMMENT 'Số lượng hiện có của mỗi Sản phẩm (số lượng thực có trong kho)',
   `discontinued` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Xác định Sản phẩm này là Ngưng bán?',
   `is_featured` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Có phải là Sản phẩm nổi bật không?',
   `is_new` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Có phải là Sản phẩm mới nhập về không?',
@@ -1867,7 +1841,6 @@ CREATE TABLE IF NOT EXISTS `shop_products` (
 ) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Sản phẩm';
 
 -- Dumping data for table netashop.shop_products: ~10 rows (approximately)
-/*!40000 ALTER TABLE `shop_products` DISABLE KEYS */;
 INSERT INTO `shop_products` (`id`, `product_code`, `product_name`, `image`, `short_description`, `description`, `standard_cost`, `list_price`, `quantity_per_unit`, `discontinued`, `is_featured`, `is_new`, `category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
 	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60_20200217160000.jpg', 'Nikkon DS90 desc', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, b'1', b'0', 3, 5, NULL, NULL),
 	(602, 'P2', 'Canon T90', 'products/canon_t90_20200217160000.jpg', 'Canon T90 desc', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, b'0', b'0', 3, 4, NULL, NULL),
@@ -1879,13 +1852,12 @@ INSERT INTO `shop_products` (`id`, `product_code`, `product_name`, `image`, `sho
 	(608, 'P8', 'Moto Play', 'products/moto_play_20200217160000.jpg', 'Moto Play desc', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, b'1', b'0', 2, 9, NULL, NULL),
 	(609, 'P9', 'Samsung Note', 'products/samsung_note_20200217160000.jpg', 'Samsung Note desc', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, b'0', b'1', 4, 8, NULL, NULL),
 	(610, 'P10', 'MacBook Pro', 'products/macbook_pro_20200217160000.jpg', 'MacBook Pro desc', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, b'1', b'1', 1, 1, NULL, NULL);
-/*!40000 ALTER TABLE `shop_products` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_product_discounts
 CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm nào?',
-  `discount_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
+  `discount_name` varchar(500) NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
   `discount_amount` double NOT NULL DEFAULT 0 COMMENT '% giảm giá hoặc số tiền giảm giá cụ thể',
   `is_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True(1): giảm giá theo số tiền cụ thể; #False(0) giảm giá theo %',
   `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Ngày bắt đầu Giảm giá',
@@ -1896,30 +1868,26 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Table chứa thông tin các sản phẩm đang được khuyến mãi trong khoảng thời gian (từ ngày - đến ngày hết hạn).\r\nThường dùng cho các chức năng:\r\n- Hiển thị danh sách Sản phẩm với Giá tiền cũ và Giá tiền mới.\r\n- Hiển thị danh sách Sản phẩm với % được giảm giá...';
 
 -- Dumping data for table netashop.shop_product_discounts: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_discounts` DISABLE KEYS */;
 INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `is_fixed`, `start_date`, `end_date`) VALUES
-	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-02-01 00:00:00', '2020-03-31 23:59:59'),
-	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-03-01 00:00:00', '2020-03-08 23:59:59');
-/*!40000 ALTER TABLE `shop_product_discounts` ENABLE KEYS */;
+	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-01-31 17:00:00', '2020-03-31 16:59:59'),
+	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-02-29 17:00:00', '2020-03-08 16:59:59');
 
 -- Dumping structure for table netashop.shop_product_images
 CREATE TABLE IF NOT EXISTS `shop_product_images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm nào?',
-  `image` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ảnh sản phẩm',
+  `image` varchar(500) NOT NULL COMMENT 'Ảnh sản phẩm',
   PRIMARY KEY (`id`),
   KEY `FK_product_images_products` (`product_id`),
   CONSTRAINT `FK_product_images_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Hình ảnh liên quan của Sản phẩm (1 Sản phẩm nên chụp nhiều góc cạnh để Khách hàng có cái nhìn khách quan)';
 
 -- Dumping data for table netashop.shop_product_images: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_images` DISABLE KEYS */;
 INSERT INTO `shop_product_images` (`id`, `product_id`, `image`) VALUES
 	(1, 601, 'products/nikkon1_20200217160000.jpg'),
 	(2, 601, 'products/nikkon2_20200217160000.jpg'),
 	(3, 601, 'products/nikkon3_20200217160000.jpg'),
 	(4, 606, 'products/nexus1_20200217160000.jpg');
-/*!40000 ALTER TABLE `shop_product_images` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_product_reviews
 CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
@@ -1927,7 +1895,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào được Đánh giá?',
   `customer_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Khách hàng nào đánh giá?',
   `rating` float NOT NULL COMMENT 'Số điểm đánh giá: từ 0 -> 5 sao',
-  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Nội dung Đánh giá',
+  `comment` text NOT NULL COMMENT 'Nội dung Đánh giá',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -1938,14 +1906,12 @@ CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu các Đánh giá về Sản phẩm';
 
 -- Dumping data for table netashop.shop_product_reviews: ~5 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_reviews` DISABLE KEYS */;
 INSERT INTO `shop_product_reviews` (`id`, `product_id`, `customer_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
-	(1, 601, 1, 3, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 16:03:05', NULL),
-	(2, 603, 2, 5, 'Sản phẩm mua mới cách đây 2 tháng, chưa thấy lỗi gì. Đóng gói khá cẩn thận, tốt.', '2020-02-17 16:05:46', NULL),
-	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 16:06:35', NULL),
-	(4, 601, 4, 3, 'Có vẻ tốt, đợi thời gian nữa xem sao :V', '2020-02-23 18:26:57', NULL),
-	(5, 601, 3, 5, 'Tuyệt vời, mình mua được ngay lúc giảm giá còn 20%. Xài thoải mái, xứng đáng giá tiền sau khi giảm giá ;P', '2020-02-23 19:42:06', NULL);
-/*!40000 ALTER TABLE `shop_product_reviews` ENABLE KEYS */;
+	(1, 601, 1, 3, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 09:03:05', NULL),
+	(2, 603, 2, 5, 'Sản phẩm mua mới cách đây 2 tháng, chưa thấy lỗi gì. Đóng gói khá cẩn thận, tốt.', '2020-02-17 09:05:46', NULL),
+	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 09:06:35', NULL),
+	(4, 601, 4, 3, 'Có vẻ tốt, đợi thời gian nữa xem sao :V', '2020-02-23 11:26:57', NULL),
+	(5, 601, 3, 5, 'Tuyệt vời, mình mua được ngay lúc giảm giá còn 20%. Xài thoải mái, xứng đáng giá tiền sau khi giảm giá ;P', '2020-02-23 12:42:06', NULL);
 
 -- Dumping structure for table netashop.shop_product_vouchers
 CREATE TABLE IF NOT EXISTS `shop_product_vouchers` (
@@ -1962,19 +1928,17 @@ CREATE TABLE IF NOT EXISTS `shop_product_vouchers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Table lưu thông tin Sản phẩm nào được áp dụng Voucher nào?';
 
 -- Dumping data for table netashop.shop_product_vouchers: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_product_vouchers` (`id`, `product_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
-	(1, 601, 1, '2020-02-17 16:07:38', NULL),
-	(2, 605, 1, '2020-02-17 16:07:46', NULL);
-/*!40000 ALTER TABLE `shop_product_vouchers` ENABLE KEYS */;
+	(1, 601, 1, '2020-02-17 09:07:38', NULL),
+	(2, 605, 1, '2020-02-17 09:07:46', NULL);
 
 -- Dumping structure for table netashop.shop_settings
 CREATE TABLE IF NOT EXISTS `shop_settings` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `group` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Phân nhóm Cấu hình',
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã Cấu hình',
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị Cấu hình',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
+  `group` varchar(500) NOT NULL COMMENT 'Phân nhóm Cấu hình',
+  `key` varchar(191) NOT NULL COMMENT 'Mã Cấu hình',
+  `value` mediumtext NOT NULL COMMENT 'Giá trị Cấu hình',
+  `description` mediumtext DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -1982,22 +1946,20 @@ CREATE TABLE IF NOT EXISTS `shop_settings` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Cấu hình sử dụng trong Hệ thống';
 
 -- Dumping data for table netashop.shop_settings: ~5 rows (approximately)
-/*!40000 ALTER TABLE `shop_settings` DISABLE KEYS */;
 INSERT INTO `shop_settings` (`id`, `group`, `key`, `value`, `description`, `created_at`, `updated_at`) VALUES
-	(1, 'common', 'app.name', 'Nền Tảng Shop', 'Tên ứng dụng', '2021-05-15 22:30:15', NULL),
-	(2, 'common', 'app.version', '1.0', 'Phiên bản ứng dụng', '2021-05-15 22:30:36', NULL),
-	(3, 'common', 'app.slogan', 'Nền tảng Hàng trang tới Tương lai', 'Slogan ứng dụng', '2021-05-15 22:31:41', NULL),
-	(4, 'owner', 'owner.address', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Địa chỉ chủ sở hữu ứng dụng', '2021-05-15 22:32:30', NULL),
-	(5, 'owner', 'owner.telephone', '0915 659 223', 'SĐT chủ sở hữu ứng dụng', '2021-05-15 22:33:01', NULL);
-/*!40000 ALTER TABLE `shop_settings` ENABLE KEYS */;
+	(1, 'common', 'app.name', 'Nền Tảng Shop', 'Tên ứng dụng', '2021-05-15 15:30:15', NULL),
+	(2, 'common', 'app.version', '1.0', 'Phiên bản ứng dụng', '2021-05-15 15:30:36', NULL),
+	(3, 'common', 'app.slogan', 'Nền tảng Hàng trang tới Tương lai', 'Slogan ứng dụng', '2021-05-15 15:31:41', NULL),
+	(4, 'owner', 'owner.address', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Địa chỉ chủ sở hữu ứng dụng', '2021-05-15 15:32:30', NULL),
+	(5, 'owner', 'owner.telephone', '0915 659 223', 'SĐT chủ sở hữu ứng dụng', '2021-05-15 15:33:01', NULL);
 
 -- Dumping structure for table netashop.shop_stores
 CREATE TABLE IF NOT EXISTS `shop_stores` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `store_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã kho',
-  `store_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên kho',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `store_code` varchar(50) NOT NULL COMMENT 'Mã kho',
+  `store_name` varchar(500) NOT NULL COMMENT 'Tên kho',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -2005,16 +1967,14 @@ CREATE TABLE IF NOT EXISTS `shop_stores` (
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT COMMENT='Bảng chứa dữ liệu về Kho hàng';
 
 -- Dumping data for table netashop.shop_stores: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_stores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_stores` ENABLE KEYS */;
 
 -- Dumping structure for table netashop.shop_suppliers
 CREATE TABLE IF NOT EXISTS `shop_suppliers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `supplier_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã nhà cung cấp',
-  `supplier_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên nhà cung cấp',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `supplier_code` varchar(50) NOT NULL COMMENT 'Mã nhà cung cấp',
+  `supplier_name` varchar(500) NOT NULL COMMENT 'Tên nhà cung cấp',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -2022,29 +1982,27 @@ CREATE TABLE IF NOT EXISTS `shop_suppliers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT COMMENT='Bảng chứa dữ liệu về các Nhà cung cấp';
 
 -- Dumping data for table netashop.shop_suppliers: ~13 rows (approximately)
-/*!40000 ALTER TABLE `shop_suppliers` DISABLE KEYS */;
 INSERT INTO `shop_suppliers` (`id`, `supplier_code`, `supplier_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple_20200217170111.jpg', '2020-02-17 16:08:55', NULL),
-	(2, 'SUP2', 'Dell', 'Dell', 'suppliers/dell_20200217170111.jpg', '2020-02-17 16:08:55', NULL),
-	(3, 'SUP3', 'Microsoft', 'Microsoft', 'suppliers/microsoft_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(4, 'SUP4', 'Canon', 'Canon', 'suppliers/canon_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(5, 'SUP5', 'Nikkon', 'Nikkon', 'suppliers/nikkon_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(6, 'SUP6', 'Google', 'Google', 'suppliers/google_20200217170111.jpg', '2020-02-17 16:08:53', NULL),
-	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad_20200217170111.jpg', '2020-02-17 16:08:53', NULL),
-	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung_20200217170111.jpg', '2020-02-17 16:08:52', NULL),
-	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(10, 'SUP10', 'Nokia', 'Nokia', 'suppliers/nokia_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(11, 'SUP11', 'BlackBerry', 'BlackBerry', 'suppliers/black_berry_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(12, 'SUP12', 'BPhone', 'Điện thoại BPhone', 'suppliers/bphone.jpg', '2020-08-08 12:38:00', NULL),
-	(13, 'SUP13', 'VinPhone', 'Điện thoại VinPhone', 'suppliers/vinphone.jpg', '2020-08-08 12:45:00', NULL);
-/*!40000 ALTER TABLE `shop_suppliers` ENABLE KEYS */;
+	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple_20200217170111.jpg', '2020-02-17 09:08:55', NULL),
+	(2, 'SUP2', 'Dell', 'Dell', 'suppliers/dell_20200217170111.jpg', '2020-02-17 09:08:55', NULL),
+	(3, 'SUP3', 'Microsoft', 'Microsoft', 'suppliers/microsoft_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(4, 'SUP4', 'Canon', 'Canon', 'suppliers/canon_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(5, 'SUP5', 'Nikkon', 'Nikkon', 'suppliers/nikkon_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(6, 'SUP6', 'Google', 'Google', 'suppliers/google_20200217170111.jpg', '2020-02-17 09:08:53', NULL),
+	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad_20200217170111.jpg', '2020-02-17 09:08:53', NULL),
+	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung_20200217170111.jpg', '2020-02-17 09:08:52', NULL),
+	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(10, 'SUP10', 'Nokia', 'Nokia', 'suppliers/nokia_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(11, 'SUP11', 'BlackBerry', 'BlackBerry', 'suppliers/black_berry_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(12, 'SUP12', 'BPhone', 'Điện thoại BPhone', 'suppliers/bphone.jpg', '2020-08-08 05:38:00', NULL),
+	(13, 'SUP13', 'VinPhone', 'Điện thoại VinPhone', 'suppliers/vinphone.jpg', '2020-08-08 05:45:00', NULL);
 
 -- Dumping structure for table netashop.shop_vouchers
 CREATE TABLE IF NOT EXISTS `shop_vouchers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `voucher_code` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã voucher',
-  `voucher_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên voucher',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả voucher',
+  `voucher_code` varchar(500) NOT NULL COMMENT 'Mã voucher',
+  `voucher_name` varchar(500) NOT NULL COMMENT 'Tên voucher',
+  `description` text DEFAULT NULL COMMENT 'Mô tả voucher',
   `uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Số lượng voucher đã sử dụng',
   `max_uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Số lượng tối đa voucher có thể sử dụng. Nếu =0 là không xác định',
   `max_uses_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Người dùng có thể sử dụng voucher này bao nhiêu lần? Nếu =0 là không xác định',
@@ -2061,12 +2019,12 @@ CREATE TABLE IF NOT EXISTS `shop_vouchers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Table lưu thông tin Danh sách các phiếu Khuyến mãi, Giảm giá. Thông thường:\r\n1. Voucher (phiếu khuyến mãi): giảm theo số tiền cụ thể\r\n2. Coupon (phiếu giảm giá %): thường giảm theo % giá trị đơn hàng\r\n';
 
 -- Dumping data for table netashop.shop_vouchers: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_vouchers` (`id`, `voucher_code`, `voucher_name`, `description`, `uses`, `max_uses`, `max_uses_user`, `type`, `discount_amount`, `is_fixed`, `start_date`, `end_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'VOU1', 'VOUCHER1', 'Voucher ', 0, 10, 1, 1, 500000, b'1', '2020-02-01 00:00:00', '2020-05-31 23:59:59', '2020-02-17 15:07:31', NULL, NULL),
-	(2, 'COUP1', 'COUPON1', 'Coupon', 0, 20, 1, 2, 5, b'0', '2020-02-01 00:00:00', '2020-03-31 23:59:59', '2020-02-17 15:10:54', NULL, NULL);
-/*!40000 ALTER TABLE `shop_vouchers` ENABLE KEYS */;
+	(1, 'VOU1', 'VOUCHER1', 'Voucher ', 0, 10, 1, 1, 500000, b'1', '2020-01-31 17:00:00', '2020-05-31 16:59:59', '2020-02-17 08:07:31', NULL, NULL),
+	(2, 'COUP1', 'COUPON1', 'Coupon', 0, 20, 1, 2, 5, b'0', '2020-01-31 17:00:00', '2020-03-31 16:59:59', '2020-02-17 08:10:54', NULL, NULL);
 
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

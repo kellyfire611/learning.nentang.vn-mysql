@@ -1,42 +1,38 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.0.0.5919
+-- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Dumping data for table netashop.acl_permissions: ~2 rows (approximately)
-/*!40000 ALTER TABLE `acl_permissions` DISABLE KEYS */;
 INSERT INTO `acl_permissions` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(1, 'backend-view', 'Xem chức năng Quản trị Hệ thống', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(2, 'suppliers-view', 'Xem chức năng Nhà cung cấp', 'web', '2020-02-12 16:29:29', NULL);
-/*!40000 ALTER TABLE `acl_permissions` ENABLE KEYS */;
+	(1, 'backend-view', 'Xem chức năng Quản trị Hệ thống', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(2, 'suppliers-view', 'Xem chức năng Nhà cung cấp', 'web', '2020-02-12 09:29:29', NULL);
 
 -- Dumping data for table netashop.acl_roles: ~4 rows (approximately)
-/*!40000 ALTER TABLE `acl_roles` DISABLE KEYS */;
 INSERT INTO `acl_roles` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(1, 'administrator', 'Quản trị Hệ thống', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(2, 'thukho', 'Thủ kho', 'web', '2019-12-09 03:10:11', '2019-12-09 03:10:11'),
-	(3, 'ketoan', 'Kế toán', 'web', '2020-02-17 15:58:13', '2020-02-17 15:58:15'),
-	(4, 'customer', 'Khách hàng', 'web', '2020-02-17 14:09:53', '2020-02-17 14:09:56');
-/*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
+	(1, 'administrator', 'Quản trị Hệ thống', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(2, 'thukho', 'Thủ kho', 'web', '2019-12-08 20:10:11', '2019-12-08 20:10:11'),
+	(3, 'ketoan', 'Kế toán', 'web', '2020-02-17 08:58:13', '2020-02-17 08:58:15'),
+	(4, 'customer', 'Khách hàng', 'web', '2020-02-17 07:09:53', '2020-02-17 07:09:56');
 
--- Dumping data for table netashop.acl_role_has_permissions: ~1 rows (approximately)
-/*!40000 ALTER TABLE `acl_role_has_permissions` DISABLE KEYS */;
+-- Dumping data for table netashop.acl_role_has_permissions: ~0 rows (approximately)
 INSERT INTO `acl_role_has_permissions` (`id`, `role_id`, `permission_id`) VALUES
 	(1, 1, 1);
-/*!40000 ALTER TABLE `acl_role_has_permissions` ENABLE KEYS */;
 
 -- Dumping data for table netashop.acl_users: ~21 rows (approximately)
-/*!40000 ALTER TABLE `acl_users` DISABLE KEYS */;
 INSERT INTO `acl_users` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `job_title`, `department`, `manager_id`, `phone`, `address1`, `address2`, `city`, `state`, `postal_code`, `country`, `remember_token`, `active_code`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'dnpcuong', 'a29c57c6894dee6e8251510d58c07078ee3f49bf', 'Dương Nguyễn Phú', 'Cường', 0, 'phucuong@ctu.edu.vn', NULL, 'avatars/dnpcuong_20200217161415.jpg', NULL, 'Developer', 'CUSC Software', NULL, '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều', NULL, 'Cần Thơ', NULL, '64000', 'Vietnam', NULL, NULL, NULL, '2020-02-12 16:17:49', NULL),
+	(1, 'dnpcuong', 'a29c57c6894dee6e8251510d58c07078ee3f49bf', 'Dương Nguyễn Phú', 'Cường', 0, 'phucuong@ctu.edu.vn', NULL, 'avatars/dnpcuong_20200217161415.jpg', NULL, 'Developer', 'CUSC Software', NULL, '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều', NULL, 'Cần Thơ', NULL, '64000', 'Vietnam', NULL, NULL, NULL, '2020-02-12 09:17:49', NULL),
 	(201, 'user1', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Harris', 'George', 0, 'gharris0@pagesperso-orange.fr', NULL, 'avatars/logo-nentang.jpg', NULL, 'Administrative Assistant I', 'Toys', NULL, '1-(210)270-8536', '2 Bayside Drive', NULL, 'San Antonio', 'Texas', '78240', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(202, 'user2', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Hayes', 'Rachel', 0, 'rhayes1@si.edu', NULL, 'avatars/logo-nentang.jpg', NULL, 'Design Engineer', 'Books', NULL, '1-(971)797-2729', '30 Anhalt Street', NULL, 'Portland', 'Oregon', '97232', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(203, 'user3', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Palmer', 'Anthony', 1, 'apalmer2@posterous.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Health Coach II', 'Toys', NULL, '1-(702)984-2108', '02809 4th Pass', NULL, 'North Las Vegas', 'Nevada', '89036', 'United States', NULL, NULL, NULL, NULL, NULL),
@@ -57,29 +53,21 @@ INSERT INTO `acl_users` (`id`, `username`, `password`, `last_name`, `first_name`
 	(218, 'user18', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Jenkins', 'Frances', 0, 'fjenkinsh@huffingtonpost.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Developer IV', 'Baby', NULL, '1-(512)764-3809', '69255 Dakota Plaza', NULL, 'Austin', 'Texas', '78769', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(219, 'user19', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Myers', 'Roger', 0, 'rmyersi@alexa.com', NULL, 'avatars/logo-nentang.jpg', NULL, 'Account Executive', 'Beauty', NULL, '1-(480)583-9583', '3 Eagle Crest Place', NULL, 'Gilbert', 'Arizona', '85297', 'United States', NULL, NULL, NULL, NULL, NULL),
 	(220, 'user20', '68c9fc4c03dff5d734aab9787b5ea01d7d88aa85', 'Hunter', 'Bonnie', 1, 'bhunterj@ucsd.edu', NULL, 'avatars/logo-nentang.jpg', NULL, 'Analog Circuit Design manager', 'Baby', NULL, '1-(320)933-5140', '99 Arapahoe Terrace', NULL, 'Saint Cloud', 'Minnesota', '56372', 'United States', NULL, NULL, NULL, NULL, NULL);
-/*!40000 ALTER TABLE `acl_users` ENABLE KEYS */;
 
 -- Dumping data for table netashop.acl_user_has_permissions: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_user_has_permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `acl_user_has_permissions` ENABLE KEYS */;
 
 -- Dumping data for table netashop.acl_user_has_roles: ~0 rows (approximately)
-/*!40000 ALTER TABLE `acl_user_has_roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `acl_user_has_roles` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_categories: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_categories` DISABLE KEYS */;
 INSERT INTO `shop_categories` (`id`, `category_code`, `category_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 'CAT1', 'Laptop', 'All laptop products', 'categories/laptop_20200217170111.jpg', NULL, NULL),
 	(2, 'CAT2', 'Phone', 'All phones', 'categories/phone_20200217170111.jpg', NULL, NULL),
 	(3, 'CAT3', 'Camera', 'PhotographCamera', 'categories/camera_20200217170111.jpg', NULL, NULL),
 	(4, 'CAT4', 'Tablet', 'Tablet', 'categories/tablet_20200217170111.jpg', NULL, NULL);
-/*!40000 ALTER TABLE `shop_categories` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_customers: ~101 rows (approximately)
-/*!40000 ALTER TABLE `shop_customers` DISABLE KEYS */;
 INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_name`, `gender`, `email`, `birthday`, `avatar`, `code`, `company`, `phone`, `billing_address`, `shipping_address`, `city`, `state`, `postal_code`, `country`, `remember_token`, `activate_code`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 20:31:30', '2020-02-23 20:31:30'),
+	(1, 'kellyfire', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Dương Nguyễn Phú', 'Cường', 0, 'kellyfire611@gmail.com', '1989-06-11 04:00:00', 'customers/avatars/kellyfire_20200217161335.jpg', '', 'NenTang', '0915-659-223', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Cần Thơ', '', '65000', 'Vietnam', NULL, NULL, 1, '2020-02-23 13:31:30', '2020-02-23 13:31:30'),
 	(2, 'customer2', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Cooper', 'Emily', 0, 'ecooper1@macromedia.com', NULL, '', '', 'Skippad', '1-(251)614-5034', '60 Forster Crossing', NULL, 'Mobile', 'Alabama', '36605', 'United States', NULL, NULL, 1, NULL, NULL),
 	(3, 'customer3', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Wilson', 'George', 0, 'gwilson2@xinhuanet.com', NULL, '', '', 'Riffpath', '1-(901)445-9881', '52 Browning Center', NULL, 'Memphis', 'Tennessee', '38181', 'United States', NULL, NULL, 1, NULL, NULL),
 	(4, 'customer4', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Mcdonald', 'Michael', 0, 'mmcdonald3@twitter.com', NULL, '', '', 'Feedfire', '1-(419)743-7314', '85093 Jackson Park', NULL, 'Toledo', 'Ohio', '43610', 'United States', NULL, NULL, 1, NULL, NULL),
@@ -179,33 +167,21 @@ INSERT INTO `shop_customers` (`id`, `username`, `password`, `last_name`, `first_
 	(98, 'customer98', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Parker', 'Emily', 0, 'eparker2p@4shared.com', NULL, '', '', 'Skalith', '1-(330)637-4894', '0 Old Shore Center', NULL, 'Akron', 'Ohio', '44310', 'United States', NULL, NULL, 1, NULL, NULL),
 	(99, 'customer99', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Chavez', 'Jeremy', 0, 'jchavez2q@businessweek.com', NULL, '', '', 'Topicware', '1-(515)769-2045', '8584 Jay Street', NULL, 'Des Moines', 'Iowa', '50335', 'United States', NULL, NULL, 1, NULL, NULL),
 	(100, 'customer100', 'dae9e9c1f4ce3b7289bf4114cde40bdbbd339f03', 'Kim', 'Pamela', 0, 'pkim2r@stumbleupon.com', NULL, '', '', 'Photolist', '1-(510)144-4318', '3688 Gerald Trail', NULL, 'Sacramento', 'California', '95823', 'United States', NULL, NULL, 1, NULL, NULL),
-	(104, 'nentangtoituonglai@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Phú', 'CUONG', 0, 'nentangtoituonglai@gmail.com', '1989-06-11 00:00:00', NULL, '362209685', 'NenTang', '0915659223', '130 Xo Viet Nghe Tinh', '130 Xo Viet Nghe Tinh', 'Quan Ninh Kieu', 'Cần Thơ', '94000', 'Việt Nam', NULL, 'bb455ad0491e4804fee04f78f54be4967b8087e0', 1, '2020-02-21 23:28:28', NULL);
-/*!40000 ALTER TABLE `shop_customers` ENABLE KEYS */;
+	(104, 'nentangtoituonglai@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Phú', 'CUONG', 0, 'nentangtoituonglai@gmail.com', '1989-06-11 00:00:00', NULL, '362209685', 'NenTang', '0915659223', '130 Xo Viet Nghe Tinh', '130 Xo Viet Nghe Tinh', 'Quan Ninh Kieu', 'Cần Thơ', '94000', 'Việt Nam', NULL, 'bb455ad0491e4804fee04f78f54be4967b8087e0', 1, '2020-02-21 16:28:28', NULL);
 
--- Dumping data for table netashop.shop_customer_vouchers: ~1 rows (approximately)
-/*!40000 ALTER TABLE `shop_customer_vouchers` DISABLE KEYS */;
+-- Dumping data for table netashop.shop_customer_vouchers: ~0 rows (approximately)
 INSERT INTO `shop_customer_vouchers` (`id`, `customer_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
-	(1, 1, 2, '2020-02-17 16:08:01', NULL);
-/*!40000 ALTER TABLE `shop_customer_vouchers` ENABLE KEYS */;
+	(1, 1, 2, '2020-02-17 09:08:01', NULL);
 
 -- Dumping data for table netashop.shop_exports: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_exports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_exports` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_export_details: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_export_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_export_details` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_imports: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_imports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_imports` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_import_details: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_import_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_import_details` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_orders: ~600 rows (approximately)
-/*!40000 ALTER TABLE `shop_orders` DISABLE KEYS */;
 INSERT INTO `shop_orders` (`id`, `employee_id`, `customer_id`, `order_date`, `shipped_date`, `ship_name`, `ship_address1`, `ship_address2`, `ship_city`, `ship_state`, `ship_postal_code`, `ship_country`, `shipping_fee`, `payment_type_id`, `paid_date`, `order_status`, `created_at`, `updated_at`) VALUES
 	(4001, 204, 40, '2016-04-05 00:00:00', '2016-11-06 00:00:00', 'Jean Fuller', '93 Spohn Place', NULL, 'Manggekompo', NULL, NULL, 'Indonesia', 8.1400, 1, '2016-10-12 00:00:00', 'On Hold', NULL, NULL),
 	(4002, 204, 95, '2017-01-29 00:00:00', '2016-05-28 00:00:00', 'Diane Holmes', '46 Eliot Trail', NULL, 'Virginia Beach', 'Virginia', '23459', 'United States', 1.5500, 3, '2016-06-27 00:00:00', 'Shipped', NULL, NULL),
@@ -807,10 +783,8 @@ INSERT INTO `shop_orders` (`id`, `employee_id`, `customer_id`, `order_date`, `sh
 	(4598, 212, 76, '2016-04-13 00:00:00', '2016-08-10 00:00:00', 'Eugene Kelly', '838 Becker Plaza', NULL, 'Laredo', 'Texas', '78044', 'United States', 4.9000, 3, '2016-10-23 00:00:00', 'New', NULL, NULL),
 	(4599, 208, 29, '2016-04-16 00:00:00', '2016-05-15 00:00:00', 'Jimmy Mcdonald', '0 Dayton Place', NULL, 'Rochester', 'New York', '14646', 'United States', 1.5600, 3, '2017-01-14 00:00:00', 'Complete', NULL, NULL),
 	(4600, 208, 2, '2016-04-26 00:00:00', '2016-04-06 00:00:00', 'Stephen Jacobs', '7131 Scoville Terrace', NULL, 'Phoenix', 'Arizona', '85020', 'United States', 4.5200, 4, '2017-01-22 00:00:00', 'On Hold', NULL, NULL);
-/*!40000 ALTER TABLE `shop_orders` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_order_details: ~700 rows (approximately)
-/*!40000 ALTER TABLE `shop_order_details` DISABLE KEYS */;
 INSERT INTO `shop_order_details` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`, `discount_percentage`, `discount_amout`, `order_detail_status`, `date_allocated`) VALUES
 	(1, 4001, 608, 1.0000, 6234000.0000, 8.73, 0, 'Allocated', '2017-01-15 00:00:00'),
 	(2, 4001, 609, 2.0000, 8183000.0000, 4.36, 0, 'No Stock', '2016-09-21 00:00:00'),
@@ -1512,33 +1486,25 @@ INSERT INTO `shop_order_details` (`id`, `order_id`, `product_id`, `quantity`, `u
 	(698, 4598, 603, 5.0000, 9384000.0000, 6.1, 0, 'No Stock', '2016-12-23 00:00:00'),
 	(699, 4599, 603, 9.0000, 9384000.0000, 6.68, 0, 'On Order', '2016-12-27 00:00:00'),
 	(700, 4600, 609, 5.0000, 8183000.0000, 8.87, 0, 'Allocated', '2016-06-16 00:00:00');
-/*!40000 ALTER TABLE `shop_order_details` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_payment_types: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_payment_types` DISABLE KEYS */;
 INSERT INTO `shop_payment_types` (`id`, `payment_code`, `payment_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'CK', 'Chuyển khoản', NULL, NULL, '2020-02-24 00:33:13', '2020-02-24 00:33:13'),
-	(2, 'Paypal', 'Thanh toán Paypal', NULL, NULL, '2020-02-24 00:33:37', NULL),
-	(3, 'NHTT', 'Nhận hàng rồi trả tiền', NULL, NULL, '2020-02-24 00:33:58', NULL),
-	(4, 'TM', 'Tiền mặt', NULL, NULL, '2020-02-24 00:37:05', NULL);
-/*!40000 ALTER TABLE `shop_payment_types` ENABLE KEYS */;
+	(1, 'CK', 'Chuyển khoản', NULL, NULL, '2020-02-23 17:33:13', '2020-02-23 17:33:13'),
+	(2, 'Paypal', 'Thanh toán Paypal', NULL, NULL, '2020-02-23 17:33:37', NULL),
+	(3, 'NHTT', 'Nhận hàng rồi trả tiền', NULL, NULL, '2020-02-23 17:33:58', NULL),
+	(4, 'TM', 'Tiền mặt', NULL, NULL, '2020-02-23 17:37:05', NULL);
 
--- Dumping data for table netashop.shop_posts: ~1 rows (approximately)
-/*!40000 ALTER TABLE `shop_posts` DISABLE KEYS */;
+-- Dumping data for table netashop.shop_posts: ~0 rows (approximately)
 INSERT INTO `shop_posts` (`id`, `post_slug`, `post_title`, `post_content`, `post_excerpt`, `post_type`, `post_status`, `post_image`, `user_id`, `post_category_id`, `created_at`, `updated_at`) VALUES
-	(1, 'chinh-sach', 'Chính sách sử dụng', 'Nội dung về Chính sách sử dụng của Hệ thống', 'Tóm tắt ngắn gọn về Chính sách', 'post', 'draft', NULL, 1, 2, '2021-05-16 02:07:08', NULL);
-/*!40000 ALTER TABLE `shop_posts` ENABLE KEYS */;
+	(1, 'chinh-sach', 'Chính sách sử dụng', 'Nội dung về Chính sách sử dụng của Hệ thống', 'Tóm tắt ngắn gọn về Chính sách', 'post', 'draft', NULL, 1, 2, '2021-05-15 19:07:08', NULL);
 
 -- Dumping data for table netashop.shop_post_categories: ~3 rows (approximately)
-/*!40000 ALTER TABLE `shop_post_categories` DISABLE KEYS */;
 INSERT INTO `shop_post_categories` (`id`, `post_category_code`, `post_category_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'tutorial', 'Hướng dẫn', 'Nhóm các bài viết về Hướng dẫn sử dụng Sản phẩm', NULL, '2021-05-16 02:04:14', NULL),
-	(2, 'policy', 'Chính sách - Điều khoản', 'Nhóm các bài viết về Chính sách, Điều khoản sử dụng của Hệ thống', NULL, '2021-05-16 02:05:33', NULL),
-	(3, 'marketing', 'Quảng cáo Marketing', 'Nhóm các bài viết về Quảng cáo, Marketing', NULL, '2021-05-16 02:06:04', NULL);
-/*!40000 ALTER TABLE `shop_post_categories` ENABLE KEYS */;
+	(1, 'tutorial', 'Hướng dẫn', 'Nhóm các bài viết về Hướng dẫn sử dụng Sản phẩm', NULL, '2021-05-15 19:04:14', NULL),
+	(2, 'policy', 'Chính sách - Điều khoản', 'Nhóm các bài viết về Chính sách, Điều khoản sử dụng của Hệ thống', NULL, '2021-05-15 19:05:33', NULL),
+	(3, 'marketing', 'Quảng cáo Marketing', 'Nhóm các bài viết về Quảng cáo, Marketing', NULL, '2021-05-15 19:06:04', NULL);
 
 -- Dumping data for table netashop.shop_products: ~10 rows (approximately)
-/*!40000 ALTER TABLE `shop_products` DISABLE KEYS */;
 INSERT INTO `shop_products` (`id`, `product_code`, `product_name`, `image`, `short_description`, `description`, `standard_cost`, `list_price`, `quantity_per_unit`, `discontinued`, `is_featured`, `is_new`, `category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
 	(601, 'P1', 'Nikkon DS90', 'products/nikkon_ds60_20200217160000.jpg', 'Nikkon DS90 desc', 'Nikkon DS90 desc', 6709000.0000, 2339000.0000, '50', 0, b'1', b'0', 3, 5, NULL, NULL),
 	(602, 'P2', 'Canon T90', 'products/canon_t90_20200217160000.jpg', 'Canon T90 desc', 'Canon T90 desc', 8283000.0000, 9384000.0000, '56', 0, b'0', b'0', 3, 4, NULL, NULL),
@@ -1550,80 +1516,65 @@ INSERT INTO `shop_products` (`id`, `product_code`, `product_name`, `image`, `sho
 	(608, 'P8', 'Moto Play', 'products/moto_play_20200217160000.jpg', 'Moto Play desc', 'Moto Play desc', 3844000.0000, 6234000.0000, '54', 1, b'1', b'0', 2, 9, NULL, NULL),
 	(609, 'P9', 'Samsung Note', 'products/samsung_note_20200217160000.jpg', 'Samsung Note desc', 'Samsung Note desc', 4758000.0000, 8183000.0000, '58', 0, b'0', b'1', 4, 8, NULL, NULL),
 	(610, 'P10', 'MacBook Pro', 'products/macbook_pro_20200217160000.jpg', 'MacBook Pro desc', 'MacBook Pro desc', 2581000.0000, 7661000.0000, '11', 0, b'1', b'1', 1, 1, NULL, NULL);
-/*!40000 ALTER TABLE `shop_products` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_product_discounts: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_discounts` DISABLE KEYS */;
 INSERT INTO `shop_product_discounts` (`id`, `product_id`, `discount_name`, `discount_amount`, `is_fixed`, `start_date`, `end_date`) VALUES
-	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-02-01 00:00:00', '2020-03-31 23:59:59'),
-	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-03-01 00:00:00', '2020-03-08 23:59:59');
-/*!40000 ALTER TABLE `shop_product_discounts` ENABLE KEYS */;
+	(1, 601, 'Giảm giá dịp lễ Vua Hùng năm 2020', 10, b'0', '2020-01-31 17:00:00', '2020-03-31 16:59:59'),
+	(2, 602, 'Giảm giá dịp lễ 08/03 năm 2020', 15, b'0', '2020-02-29 17:00:00', '2020-03-08 16:59:59');
 
 -- Dumping data for table netashop.shop_product_images: ~4 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_images` DISABLE KEYS */;
 INSERT INTO `shop_product_images` (`id`, `product_id`, `image`) VALUES
 	(1, 601, 'products/nikkon1_20200217160000.jpg'),
 	(2, 601, 'products/nikkon2_20200217160000.jpg'),
 	(3, 601, 'products/nikkon3_20200217160000.jpg'),
 	(4, 606, 'products/nexus1_20200217160000.jpg');
-/*!40000 ALTER TABLE `shop_product_images` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_product_reviews: ~5 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_reviews` DISABLE KEYS */;
 INSERT INTO `shop_product_reviews` (`id`, `product_id`, `customer_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
-	(1, 601, 1, 3, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 16:03:05', NULL),
-	(2, 603, 2, 5, 'Sản phẩm mua mới cách đây 2 tháng, chưa thấy lỗi gì. Đóng gói khá cẩn thận, tốt.', '2020-02-17 16:05:46', NULL),
-	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 16:06:35', NULL),
-	(4, 601, 4, 3, 'Có vẻ tốt, đợi thời gian nữa xem sao :V', '2020-02-23 18:26:57', NULL),
-	(5, 601, 3, 5, 'Tuyệt vời, mình mua được ngay lúc giảm giá còn 20%. Xài thoải mái, xứng đáng giá tiền sau khi giảm giá ;P', '2020-02-23 19:42:06', NULL);
-/*!40000 ALTER TABLE `shop_product_reviews` ENABLE KEYS */;
+	(1, 601, 1, 3, 'Chụp ảnh tốt, hình vi diệu... Có điều giá hơi chát, 4s ;P', '2020-02-17 09:03:05', NULL),
+	(2, 603, 2, 5, 'Sản phẩm mua mới cách đây 2 tháng, chưa thấy lỗi gì. Đóng gói khá cẩn thận, tốt.', '2020-02-17 09:05:46', NULL),
+	(3, 601, 1, 2, 'Mới mua về, đang khui hộp lỡ tay làm rớt có 1 cái, hư luôn, tệ hết sức, không bảo hành luôn. Cho 1 sao vì số t xui :(', '2020-02-17 09:06:35', NULL),
+	(4, 601, 4, 3, 'Có vẻ tốt, đợi thời gian nữa xem sao :V', '2020-02-23 11:26:57', NULL),
+	(5, 601, 3, 5, 'Tuyệt vời, mình mua được ngay lúc giảm giá còn 20%. Xài thoải mái, xứng đáng giá tiền sau khi giảm giá ;P', '2020-02-23 12:42:06', NULL);
 
 -- Dumping data for table netashop.shop_product_vouchers: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_product_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_product_vouchers` (`id`, `product_id`, `voucher_id`, `created_at`, `updated_at`) VALUES
-	(1, 601, 1, '2020-02-17 16:07:38', NULL),
-	(2, 605, 1, '2020-02-17 16:07:46', NULL);
-/*!40000 ALTER TABLE `shop_product_vouchers` ENABLE KEYS */;
+	(1, 601, 1, '2020-02-17 09:07:38', NULL),
+	(2, 605, 1, '2020-02-17 09:07:46', NULL);
 
 -- Dumping data for table netashop.shop_settings: ~5 rows (approximately)
-/*!40000 ALTER TABLE `shop_settings` DISABLE KEYS */;
 INSERT INTO `shop_settings` (`id`, `group`, `key`, `value`, `description`, `created_at`, `updated_at`) VALUES
-	(1, 'common', 'app.name', 'Nền Tảng Shop', 'Tên ứng dụng', '2021-05-15 22:30:15', NULL),
-	(2, 'common', 'app.version', '1.0', 'Phiên bản ứng dụng', '2021-05-15 22:30:36', NULL),
-	(3, 'common', 'app.slogan', 'Nền tảng Hàng trang tới Tương lai', 'Slogan ứng dụng', '2021-05-15 22:31:41', NULL),
-	(4, 'owner', 'owner.address', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Địa chỉ chủ sở hữu ứng dụng', '2021-05-15 22:32:30', NULL),
-	(5, 'owner', 'owner.telephone', '0915 659 223', 'SĐT chủ sở hữu ứng dụng', '2021-05-15 22:33:01', NULL);
-/*!40000 ALTER TABLE `shop_settings` ENABLE KEYS */;
+	(1, 'common', 'app.name', 'Nền Tảng Shop', 'Tên ứng dụng', '2021-05-15 15:30:15', NULL),
+	(2, 'common', 'app.version', '1.0', 'Phiên bản ứng dụng', '2021-05-15 15:30:36', NULL),
+	(3, 'common', 'app.slogan', 'Nền tảng Hàng trang tới Tương lai', 'Slogan ứng dụng', '2021-05-15 15:31:41', NULL),
+	(4, 'owner', 'owner.address', '130 Xô Viết Nghệ Tỉnh, Quận Ninh Kiều, TP Cần Thơ', 'Địa chỉ chủ sở hữu ứng dụng', '2021-05-15 15:32:30', NULL),
+	(5, 'owner', 'owner.telephone', '0915 659 223', 'SĐT chủ sở hữu ứng dụng', '2021-05-15 15:33:01', NULL);
 
 -- Dumping data for table netashop.shop_stores: ~0 rows (approximately)
-/*!40000 ALTER TABLE `shop_stores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shop_stores` ENABLE KEYS */;
 
 -- Dumping data for table netashop.shop_suppliers: ~13 rows (approximately)
-/*!40000 ALTER TABLE `shop_suppliers` DISABLE KEYS */;
 INSERT INTO `shop_suppliers` (`id`, `supplier_code`, `supplier_name`, `description`, `image`, `created_at`, `updated_at`) VALUES
-	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple_20200217170111.jpg', '2020-02-17 16:08:55', NULL),
-	(2, 'SUP2', 'Dell', 'Dell', 'suppliers/dell_20200217170111.jpg', '2020-02-17 16:08:55', NULL),
-	(3, 'SUP3', 'Microsoft', 'Microsoft', 'suppliers/microsoft_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(4, 'SUP4', 'Canon', 'Canon', 'suppliers/canon_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(5, 'SUP5', 'Nikkon', 'Nikkon', 'suppliers/nikkon_20200217170111.jpg', '2020-02-17 16:08:54', NULL),
-	(6, 'SUP6', 'Google', 'Google', 'suppliers/google_20200217170111.jpg', '2020-02-17 16:08:53', NULL),
-	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad_20200217170111.jpg', '2020-02-17 16:08:53', NULL),
-	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung_20200217170111.jpg', '2020-02-17 16:08:52', NULL),
-	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(10, 'SUP10', 'Nokia', 'Nokia', 'suppliers/nokia_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(11, 'SUP11', 'BlackBerry', 'BlackBerry', 'suppliers/black_berry_20200217170111.jpg', '2020-02-17 16:08:51', NULL),
-	(12, 'SUP12', 'BPhone', 'Điện thoại BPhone', 'suppliers/bphone.jpg', '2020-08-08 12:38:00', NULL),
-	(13, 'SUP13', 'VinPhone', 'Điện thoại VinPhone', 'suppliers/vinphone.jpg', '2020-08-08 12:45:00', NULL);
-/*!40000 ALTER TABLE `shop_suppliers` ENABLE KEYS */;
+	(1, 'SUP1', 'Apple', 'Apple', 'suppliers/apple_20200217170111.jpg', '2020-02-17 09:08:55', NULL),
+	(2, 'SUP2', 'Dell', 'Dell', 'suppliers/dell_20200217170111.jpg', '2020-02-17 09:08:55', NULL),
+	(3, 'SUP3', 'Microsoft', 'Microsoft', 'suppliers/microsoft_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(4, 'SUP4', 'Canon', 'Canon', 'suppliers/canon_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(5, 'SUP5', 'Nikkon', 'Nikkon', 'suppliers/nikkon_20200217170111.jpg', '2020-02-17 09:08:54', NULL),
+	(6, 'SUP6', 'Google', 'Google', 'suppliers/google_20200217170111.jpg', '2020-02-17 09:08:53', NULL),
+	(7, 'SUP7', 'ThinkPad', 'ThinkPad', 'suppliers/thinkpad_20200217170111.jpg', '2020-02-17 09:08:53', NULL),
+	(8, 'SUP8', 'Samsung', 'Samsung', 'suppliers/samsung_20200217170111.jpg', '2020-02-17 09:08:52', NULL),
+	(9, 'SUP9', 'Moto', 'Moto', 'suppliers/moto_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(10, 'SUP10', 'Nokia', 'Nokia', 'suppliers/nokia_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(11, 'SUP11', 'BlackBerry', 'BlackBerry', 'suppliers/black_berry_20200217170111.jpg', '2020-02-17 09:08:51', NULL),
+	(12, 'SUP12', 'BPhone', 'Điện thoại BPhone', 'suppliers/bphone.jpg', '2020-08-08 05:38:00', NULL),
+	(13, 'SUP13', 'VinPhone', 'Điện thoại VinPhone', 'suppliers/vinphone.jpg', '2020-08-08 05:45:00', NULL);
 
 -- Dumping data for table netashop.shop_vouchers: ~2 rows (approximately)
-/*!40000 ALTER TABLE `shop_vouchers` DISABLE KEYS */;
 INSERT INTO `shop_vouchers` (`id`, `voucher_code`, `voucher_name`, `description`, `uses`, `max_uses`, `max_uses_user`, `type`, `discount_amount`, `is_fixed`, `start_date`, `end_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'VOU1', 'VOUCHER1', 'Voucher ', 0, 10, 1, 1, 500000, b'1', '2020-02-01 00:00:00', '2020-05-31 23:59:59', '2020-02-17 15:07:31', NULL, NULL),
-	(2, 'COUP1', 'COUPON1', 'Coupon', 0, 20, 1, 2, 5, b'0', '2020-02-01 00:00:00', '2020-03-31 23:59:59', '2020-02-17 15:10:54', NULL, NULL);
-/*!40000 ALTER TABLE `shop_vouchers` ENABLE KEYS */;
+	(1, 'VOU1', 'VOUCHER1', 'Voucher ', 0, 10, 1, 1, 500000, b'1', '2020-01-31 17:00:00', '2020-05-31 16:59:59', '2020-02-17 08:07:31', NULL, NULL),
+	(2, 'COUP1', 'COUPON1', 'Coupon', 0, 20, 1, 2, 5, b'0', '2020-01-31 17:00:00', '2020-03-31 16:59:59', '2020-02-17 08:10:54', NULL, NULL);
 
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

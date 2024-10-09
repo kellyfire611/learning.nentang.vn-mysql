@@ -1,27 +1,30 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.0.0.5919
+-- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- Dumping database structure for netashop
-CREATE DATABASE IF NOT EXISTS `netashop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+CREATE DATABASE IF NOT EXISTS `netashop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `netashop`;
 
 -- Dumping structure for table netashop.acl_permissions
 CREATE TABLE IF NOT EXISTS `acl_permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Quyền',
-  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Tên Quyền thân thiện (dễ hiểu cho người dùng)',
-  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên guard bảo vệ',
+  `name` varchar(500) NOT NULL COMMENT 'Tên Quyền',
+  `display_name` varchar(500) DEFAULT NULL COMMENT 'Tên Quyền thân thiện (dễ hiểu cho người dùng)',
+  `guard_name` varchar(500) NOT NULL COMMENT 'Tên guard bảo vệ',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`)
@@ -32,9 +35,9 @@ CREATE TABLE IF NOT EXISTS `acl_permissions` (
 -- Dumping structure for table netashop.acl_roles
 CREATE TABLE IF NOT EXISTS `acl_roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Vai trò',
-  `display_name` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Tên Vai trò thân thiện (dễ hiểu với người dùng)',
-  `guard_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên guard bảo vệ',
+  `name` varchar(500) NOT NULL COMMENT 'Tên Vai trò',
+  `display_name` varchar(500) DEFAULT NULL COMMENT 'Tên Vai trò thân thiện (dễ hiểu với người dùng)',
+  `guard_name` varchar(500) NOT NULL COMMENT 'Tên guard bảo vệ',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`)
@@ -59,27 +62,27 @@ CREATE TABLE IF NOT EXISTS `acl_role_has_permissions` (
 -- Dumping structure for table netashop.acl_users
 CREATE TABLE IF NOT EXISTS `acl_users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
-  `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: user@123)',
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  `username` varchar(191) NOT NULL COMMENT 'Tên đăng nhập',
+  `password` varchar(500) NOT NULL COMMENT 'Mật khẩu (mặc định: user@123)',
+  `last_name` varchar(255) NOT NULL COMMENT 'Họ và tên lót',
+  `first_name` varchar(255) NOT NULL COMMENT 'Tên',
   `gender` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT 'Giới tính: #0: Nam; #1: Nữ',
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email',
+  `email` varchar(191) NOT NULL COMMENT 'Email',
   `birthday` datetime DEFAULT NULL COMMENT 'Ngày sinh',
-  `avatar` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Hình đại diện',
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã CMND / CCCD',
-  `job_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Chức danh',
-  `department` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Phòng',
+  `avatar` varchar(500) DEFAULT NULL COMMENT 'Hình đại diện',
+  `code` varchar(255) DEFAULT NULL COMMENT 'Mã CMND / CCCD',
+  `job_title` varchar(255) DEFAULT NULL COMMENT 'Chức danh',
+  `department` varchar(255) DEFAULT NULL COMMENT 'Phòng',
   `manager_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Người phụ trách Quản lý',
-  `phone` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số điện thoại',
-  `address1` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ 1',
-  `address2` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ 2',
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Thành phố',
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Bang',
-  `postal_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã bưu chính',
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Quốc gia',
-  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Token ghi nhớ Đăng nhập',
-  `active_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã kích hoạt',
+  `phone` varchar(25) DEFAULT NULL COMMENT 'Số điện thoại',
+  `address1` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ 1',
+  `address2` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ 2',
+  `city` varchar(255) DEFAULT NULL COMMENT 'Thành phố',
+  `state` varchar(255) DEFAULT NULL COMMENT 'Bang',
+  `postal_code` varchar(15) DEFAULT NULL COMMENT 'Mã bưu chính',
+  `country` varchar(255) DEFAULT NULL COMMENT 'Quốc gia',
+  `remember_token` varchar(255) DEFAULT NULL COMMENT 'Token ghi nhớ Đăng nhập',
+  `active_code` varchar(255) DEFAULT NULL COMMENT 'Mã kích hoạt',
   `status` tinyint(4) DEFAULT NULL COMMENT 'Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
@@ -121,10 +124,10 @@ CREATE TABLE IF NOT EXISTS `acl_user_has_roles` (
 -- Dumping structure for table netashop.shop_categories
 CREATE TABLE IF NOT EXISTS `shop_categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `category_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã chuyên mục',
-  `category_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chuyên mục',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `category_code` varchar(50) NOT NULL COMMENT 'Mã chuyên mục',
+  `category_name` varchar(500) NOT NULL COMMENT 'Tên chuyên mục',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -136,25 +139,25 @@ CREATE TABLE IF NOT EXISTS `shop_categories` (
 -- Dumping structure for table netashop.shop_customers
 CREATE TABLE IF NOT EXISTS `shop_customers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên đăng nhập',
-  `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ và tên lót',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  `username` varchar(191) NOT NULL COMMENT 'Tên đăng nhập',
+  `password` varchar(500) NOT NULL COMMENT 'Mật khẩu (mặc định: customer@123)',
+  `last_name` varchar(255) NOT NULL COMMENT 'Họ và tên lót',
+  `first_name` varchar(255) NOT NULL COMMENT 'Tên',
   `gender` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Giới tính: #0: Nam; #1: Nữ',
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Email',
+  `email` varchar(191) NOT NULL COMMENT 'Email',
   `birthday` datetime DEFAULT NULL COMMENT 'Ngày sinh',
-  `avatar` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã CMND / CCCD',
-  `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Công ty',
-  `phone` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số điện thoại',
-  `billing_address` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ Thanh toán',
-  `shipping_address` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Địa chỉ Giao hàng',
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Thành phố',
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Bang',
-  `postal_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã bưu chính',
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Quốc gia',
-  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Token ghi nhớ đăng nhập',
-  `activate_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mã kích hoạt',
+  `avatar` varchar(500) DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `code` varchar(255) NOT NULL COMMENT 'Mã CMND / CCCD',
+  `company` varchar(255) DEFAULT NULL COMMENT 'Công ty',
+  `phone` varchar(25) DEFAULT NULL COMMENT 'Số điện thoại',
+  `billing_address` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ Thanh toán',
+  `shipping_address` varchar(500) DEFAULT NULL COMMENT 'Địa chỉ Giao hàng',
+  `city` varchar(255) DEFAULT NULL COMMENT 'Thành phố',
+  `state` varchar(255) DEFAULT NULL COMMENT 'Bang',
+  `postal_code` varchar(15) DEFAULT NULL COMMENT 'Mã bưu chính',
+  `country` varchar(255) DEFAULT NULL COMMENT 'Quốc gia',
+  `remember_token` varchar(255) DEFAULT NULL COMMENT 'Token ghi nhớ đăng nhập',
+  `activate_code` varchar(255) DEFAULT NULL COMMENT 'Mã kích hoạt',
   `status` tinyint(4) DEFAULT NULL COMMENT 'Trạng thái: #0: chưa kích hoạt; #1: đã kích hoạt',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
@@ -187,12 +190,16 @@ CREATE TABLE IF NOT EXISTS `shop_exports` (
   `store_id` bigint(20) unsigned NOT NULL COMMENT 'Xuất từ kho hàng nào?',
   `employee_id` bigint(20) unsigned NOT NULL COMMENT 'Nhân viên nào lập phiếu xuất?',
   `export_date` datetime NOT NULL COMMENT 'Ngày Xuất kho',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải, ghi chú xuất hàng',
+  `order_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Xuất cho đơn hàng nào?',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_shop_exports_acl_users` (`employee_id`) USING BTREE,
   KEY `FK_shop_exports_shop_stores` (`store_id`) USING BTREE,
+  KEY `FK_shop_exports_shop_orders` (`order_id`),
   CONSTRAINT `FK_shop_exports_acl_users` FOREIGN KEY (`employee_id`) REFERENCES `acl_users` (`id`),
+  CONSTRAINT `FK_shop_exports_shop_orders` FOREIGN KEY (`order_id`) REFERENCES `shop_orders` (`id`),
   CONSTRAINT `FK_shop_exports_shop_stores` FOREIGN KEY (`store_id`) REFERENCES `shop_stores` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Bảng chứa dữ liệu về các Phiếu Xuất';
 
@@ -205,10 +212,13 @@ CREATE TABLE IF NOT EXISTS `shop_export_details` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào xuất đi?',
   `quantity` decimal(18,4) NOT NULL DEFAULT 0.0000 COMMENT 'Số lượng xuất',
   `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Đơn giá xuất',
+  `import_detail_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Xuất từ chi tiết nhập kho nào?',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_shop_export_details_shop_exports` (`export_id`) USING BTREE,
   KEY `FK_shop_export_details_shop_products` (`product_id`) USING BTREE,
+  KEY `FK_shop_export_details_shop_import_details` (`import_detail_id`),
   CONSTRAINT `FK_shop_export_details_shop_exports` FOREIGN KEY (`export_id`) REFERENCES `shop_exports` (`id`),
+  CONSTRAINT `FK_shop_export_details_shop_import_details` FOREIGN KEY (`import_detail_id`) REFERENCES `shop_import_details` (`id`),
   CONSTRAINT `FK_shop_export_details_shop_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Bảng chứa dữ liệu về các Sản phẩm được nhập trong Phiếu Nhập';
 
@@ -254,17 +264,17 @@ CREATE TABLE IF NOT EXISTS `shop_orders` (
   `customer_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc khách hàng nào?',
   `order_date` datetime NOT NULL COMMENT 'Ngày tạo Đơn hàng',
   `shipped_date` datetime DEFAULT NULL COMMENT 'Ngày giao hàng',
-  `ship_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Họ tên Người giao hàng',
-  `ship_address1` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Địa chỉ 1',
-  `ship_address2` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Địa chỉ 2',
-  `ship_city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Thành phố',
-  `ship_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Bang',
-  `ship_postal_code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Giao hàng đến Mã bưu chính',
-  `ship_country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giao hàng đến Quốc gia',
+  `ship_name` varchar(50) NOT NULL COMMENT 'Họ tên Người giao hàng',
+  `ship_address1` varchar(500) NOT NULL COMMENT 'Giao hàng đến Địa chỉ 1',
+  `ship_address2` varchar(500) DEFAULT NULL COMMENT 'Giao hàng đến Địa chỉ 2',
+  `ship_city` varchar(255) NOT NULL COMMENT 'Giao hàng đến Thành phố',
+  `ship_state` varchar(255) DEFAULT NULL COMMENT 'Giao hàng đến Bang',
+  `ship_postal_code` varchar(50) DEFAULT NULL COMMENT 'Giao hàng đến Mã bưu chính',
+  `ship_country` varchar(255) NOT NULL COMMENT 'Giao hàng đến Quốc gia',
   `shipping_fee` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Phí giao hàng',
   `payment_type_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Phương thức Thanh toán nào?',
   `paid_date` datetime DEFAULT NULL COMMENT 'Ngày thanh toán',
-  `order_status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Trạng thái: #New: mới tạo Đơn hàng -> #On Hold: đang xử lý -> #Shipped: đã giao hàng -> #Complete: đã hoàn tất đơn hàng (khách đã thanh toán và nhận hàng xong)',
+  `order_status` varchar(50) NOT NULL COMMENT 'Trạng thái: #New: mới tạo Đơn hàng -> #On Hold: đang xử lý -> #Shipped: đã giao hàng -> #Complete: đã hoàn tất đơn hàng (khách đã thanh toán và nhận hàng xong)',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -287,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `shop_order_details` (
   `unit_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá bán của Sản phẩm trong Đơn hàng',
   `discount_percentage` float NOT NULL DEFAULT 0 COMMENT 'Giảm giá theo % từng Sản phẩm trong Đơn hàng',
   `discount_amout` double NOT NULL DEFAULT 0 COMMENT 'Giảm giá theo Số tiền cụ thể cho từng Sản phẩm trong Đơn hàng',
-  `order_detail_status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Trạng thái của từng Sản phẩm trong Đơn hàng',
+  `order_detail_status` varchar(50) DEFAULT NULL COMMENT 'Trạng thái của từng Sản phẩm trong Đơn hàng',
   `date_allocated` datetime DEFAULT NULL COMMENT 'Ngày Sản phẩm này đã chuyển đến tay Khách hàng',
   PRIMARY KEY (`id`),
   KEY `FK_shop_order_details_shop_orders` (`order_id`),
@@ -301,10 +311,10 @@ CREATE TABLE IF NOT EXISTS `shop_order_details` (
 -- Dumping structure for table netashop.shop_payment_types
 CREATE TABLE IF NOT EXISTS `shop_payment_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `payment_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã hình thức thanh toán',
-  `payment_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên hình thức thanh toán',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `payment_code` varchar(50) NOT NULL COMMENT 'Mã hình thức thanh toán',
+  `payment_name` varchar(500) NOT NULL COMMENT 'Tên hình thức thanh toán',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -316,13 +326,13 @@ CREATE TABLE IF NOT EXISTS `shop_payment_types` (
 -- Dumping structure for table netashop.shop_posts
 CREATE TABLE IF NOT EXISTS `shop_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `post_slug` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Đường dẫn của bài viết',
-  `post_title` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Tiêu đề bài viết',
-  `post_content` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Nội dung bài viết',
-  `post_excerpt` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
-  `post_type` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post' COMMENT 'Loại bài viết: #1: bài viết, #2: trang cố định',
-  `post_status` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft' COMMENT 'Trạng thái bài viết: #draft: viết nháp; #publish: đăng lên trang web; ...',
-  `post_image` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện bài viết',
+  `post_slug` text NOT NULL DEFAULT '' COMMENT 'Đường dẫn của bài viết',
+  `post_title` text NOT NULL DEFAULT '' COMMENT 'Tiêu đề bài viết',
+  `post_content` mediumtext DEFAULT NULL COMMENT 'Nội dung bài viết',
+  `post_excerpt` mediumtext DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
+  `post_type` varchar(500) NOT NULL DEFAULT 'post' COMMENT 'Loại bài viết: #1: bài viết, #2: trang cố định',
+  `post_status` varchar(500) NOT NULL DEFAULT 'draft' COMMENT 'Trạng thái bài viết: #draft: viết nháp; #publish: đăng lên trang web; ...',
+  `post_image` mediumtext DEFAULT NULL COMMENT 'Ảnh đại diện bài viết',
   `user_id` bigint(20) unsigned NOT NULL COMMENT 'Tác giả bài viết',
   `post_category_id` bigint(20) unsigned DEFAULT NULL COMMENT 'Thuộc chuyên mục nào?',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Ngày tạo mới',
@@ -339,10 +349,10 @@ CREATE TABLE IF NOT EXISTS `shop_posts` (
 -- Dumping structure for table netashop.shop_post_categories
 CREATE TABLE IF NOT EXISTS `shop_post_categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `post_category_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã chuyên mục',
-  `post_category_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên chuyên mục',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `post_category_code` varchar(50) NOT NULL COMMENT 'Mã chuyên mục',
+  `post_category_name` varchar(500) NOT NULL COMMENT 'Tên chuyên mục',
+  `description` mediumtext DEFAULT NULL COMMENT 'Diễn giải',
+  `image` mediumtext DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -354,14 +364,14 @@ CREATE TABLE IF NOT EXISTS `shop_post_categories` (
 -- Dumping structure for table netashop.shop_products
 CREATE TABLE IF NOT EXISTS `shop_products` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `product_code` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã sản phẩm',
-  `product_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên sản phẩm',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
-  `short_description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả ngắn',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả',
+  `product_code` varchar(25) NOT NULL COMMENT 'Mã sản phẩm',
+  `product_name` varchar(50) NOT NULL COMMENT 'Tên sản phẩm',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `short_description` varchar(250) DEFAULT NULL COMMENT 'Mô tả ngắn',
+  `description` text DEFAULT NULL COMMENT 'Mô tả',
   `standard_cost` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá nhập',
   `list_price` decimal(19,4) NOT NULL DEFAULT 0.0000 COMMENT 'Giá niêm yết (giá bán)',
-  `quantity_per_unit` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Số lượng hiện có của mỗi Sản phẩm (số lượng thực có trong kho)',
+  `quantity_per_unit` varchar(50) DEFAULT NULL COMMENT 'Số lượng hiện có của mỗi Sản phẩm (số lượng thực có trong kho)',
   `discontinued` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Xác định Sản phẩm này là Ngưng bán?',
   `is_featured` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Có phải là Sản phẩm nổi bật không?',
   `is_new` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Có phải là Sản phẩm mới nhập về không?',
@@ -382,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `shop_products` (
 CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm nào?',
-  `discount_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
+  `discount_name` varchar(500) NOT NULL COMMENT 'Tên Sự kiện Giảm giá',
   `discount_amount` double NOT NULL DEFAULT 0 COMMENT '% giảm giá hoặc số tiền giảm giá cụ thể',
   `is_fixed` bit(1) NOT NULL DEFAULT b'0' COMMENT '#True(1): giảm giá theo số tiền cụ thể; #False(0) giảm giá theo %',
   `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Ngày bắt đầu Giảm giá',
@@ -398,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_discounts` (
 CREATE TABLE IF NOT EXISTS `shop_product_images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Thuộc sản phẩm nào?',
-  `image` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ảnh sản phẩm',
+  `image` varchar(500) NOT NULL COMMENT 'Ảnh sản phẩm',
   PRIMARY KEY (`id`),
   KEY `FK_product_images_products` (`product_id`),
   CONSTRAINT `FK_product_images_products` FOREIGN KEY (`product_id`) REFERENCES `shop_products` (`id`)
@@ -412,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `shop_product_reviews` (
   `product_id` bigint(20) unsigned NOT NULL COMMENT 'Sản phẩm nào được Đánh giá?',
   `customer_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT 'Khách hàng nào đánh giá?',
   `rating` float NOT NULL COMMENT 'Số điểm đánh giá: từ 0 -> 5 sao',
-  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Nội dung Đánh giá',
+  `comment` text NOT NULL COMMENT 'Nội dung Đánh giá',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -443,10 +453,10 @@ CREATE TABLE IF NOT EXISTS `shop_product_vouchers` (
 -- Dumping structure for table netashop.shop_settings
 CREATE TABLE IF NOT EXISTS `shop_settings` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `group` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Phân nhóm Cấu hình',
-  `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã Cấu hình',
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị Cấu hình',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
+  `group` varchar(500) NOT NULL COMMENT 'Phân nhóm Cấu hình',
+  `key` varchar(191) NOT NULL COMMENT 'Mã Cấu hình',
+  `value` mediumtext NOT NULL COMMENT 'Giá trị Cấu hình',
+  `description` mediumtext DEFAULT NULL COMMENT 'Diễn giải về Cấu hình',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -458,10 +468,10 @@ CREATE TABLE IF NOT EXISTS `shop_settings` (
 -- Dumping structure for table netashop.shop_stores
 CREATE TABLE IF NOT EXISTS `shop_stores` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `store_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã kho',
-  `store_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên kho',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `store_code` varchar(50) NOT NULL COMMENT 'Mã kho',
+  `store_name` varchar(500) NOT NULL COMMENT 'Tên kho',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`) USING BTREE,
@@ -473,10 +483,10 @@ CREATE TABLE IF NOT EXISTS `shop_stores` (
 -- Dumping structure for table netashop.shop_suppliers
 CREATE TABLE IF NOT EXISTS `shop_suppliers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `supplier_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã nhà cung cấp',
-  `supplier_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên nhà cung cấp',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Diễn giải',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ảnh đại diện',
+  `supplier_code` varchar(50) NOT NULL COMMENT 'Mã nhà cung cấp',
+  `supplier_name` varchar(500) NOT NULL COMMENT 'Tên nhà cung cấp',
+  `description` text DEFAULT NULL COMMENT 'Diễn giải',
+  `image` text DEFAULT NULL COMMENT 'Ảnh đại diện',
   `created_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày tạo mới',
   `updated_at` timestamp NULL DEFAULT NULL COMMENT 'Ngày cập nhật',
   PRIMARY KEY (`id`),
@@ -488,9 +498,9 @@ CREATE TABLE IF NOT EXISTS `shop_suppliers` (
 -- Dumping structure for table netashop.shop_vouchers
 CREATE TABLE IF NOT EXISTS `shop_vouchers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Khóa chính',
-  `voucher_code` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Mã voucher',
-  `voucher_name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên voucher',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Mô tả voucher',
+  `voucher_code` varchar(500) NOT NULL COMMENT 'Mã voucher',
+  `voucher_name` varchar(500) NOT NULL COMMENT 'Tên voucher',
+  `description` text DEFAULT NULL COMMENT 'Mô tả voucher',
   `uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Số lượng voucher đã sử dụng',
   `max_uses` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Số lượng tối đa voucher có thể sử dụng. Nếu =0 là không xác định',
   `max_uses_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Người dùng có thể sử dụng voucher này bao nhiêu lần? Nếu =0 là không xác định',
@@ -508,6 +518,8 @@ CREATE TABLE IF NOT EXISTS `shop_vouchers` (
 
 -- Data exporting was unselected.
 
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

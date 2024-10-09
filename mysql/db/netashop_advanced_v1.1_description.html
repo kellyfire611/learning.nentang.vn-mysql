@@ -138,11 +138,11 @@
     <header>
       <div class="row">
         <div class="col-md-3 text-left">
-          <img src="logo-nentang.jpg" class="img-fluid" style="width: 150px;"/>
+          <img src="logo-nentang-v2-transparent.png" class="img-fluid" style="width: 150px;"/>
         </div>
         <div class="col-md-9 d-flex flex-column justify-content-center">
           <div>
-            <h1>Mô tả database <b>netashop</b></h1>
+            <h1>Mô tả database <b style="color: red;">netashop</b></h1>
             <p>
               <em>Tác giả: <b>Dương Nguyễn Phú Cường</b></em><br />
               <em>Email: <b><a href="mailto:nentangtoituonglai@gmail.com">nentangtoituonglai@gmail.com</a></b></em><br />
@@ -187,39 +187,56 @@
 
     <nav>
       <h2>Danh sách các Tables</h2>
-      <ul>
+      <ol>
+        <li><a href='#acl_users'>acl_users</a></li>
+        <li><a href='#acl_roles'>acl_roles</a></li>
         <li><a href='#acl_permissions'>acl_permissions</a></li>
         <li><a href='#acl_role_has_permissions'>acl_role_has_permissions</a></li>
-        <li><a href='#acl_roles'>acl_roles</a></li>
         <li><a href='#acl_user_has_permissions'>acl_user_has_permissions</a></li>
         <li><a href='#acl_user_has_roles'>acl_user_has_roles</a></li>
-        <li><a href='#acl_users'>acl_users</a></li>
-        <li><a href='#shop_categories'>shop_categories</a></li>
-        <li><a href='#shop_customer_vouchers'>shop_customer_vouchers</a></li>
-        <li><a href='#shop_customers'>shop_customers</a></li>
-        <li><a href='#shop_export_details'>shop_export_details</a></li>
-        <li><a href='#shop_exports'>shop_exports</a></li>
-        <li><a href='#shop_import_details'>shop_import_details</a></li>
-        <li><a href='#shop_imports'>shop_imports</a></li>
-        <li><a href='#shop_order_details'>shop_order_details</a></li>
-        <li><a href='#shop_orders'>shop_orders</a></li>
+
         <li><a href='#shop_payment_types'>shop_payment_types</a></li>
+        <li><a href='#shop_categories'>shop_categories</a></li>
+        <li><a href='#shop_suppliers'>shop_suppliers</a></li>
+        <li><a href='#shop_customers'>shop_customers</a></li>
+                
+        <li><a href='#shop_stores'>shop_stores</a></li>
+        <li><a href='#shop_imports'>shop_imports</a></li>
+        <li><a href='#shop_import_details'>shop_import_details</a></li>
+        <li><a href='#shop_exports'>shop_exports</a></li>
+        <li><a href='#shop_export_details'>shop_export_details</a></li>
+        
+        <li><a href='#shop_orders'>shop_orders</a></li>
+        <li><a href='#shop_order_details'>shop_order_details</a></li>
+
         <li><a href='#shop_post_categories'>shop_post_categories</a></li>
         <li><a href='#shop_posts'>shop_posts</a></li>
+
+        <li><a href='#shop_products'>shop_products</a></li>
         <li><a href='#shop_product_discounts'>shop_product_discounts</a></li>
         <li><a href='#shop_product_images'>shop_product_images</a></li>
         <li><a href='#shop_product_reviews'>shop_product_reviews</a></li>
         <li><a href='#shop_product_vouchers'>shop_product_vouchers</a></li>
-        <li><a href='#shop_products'>shop_products</a></li>
-        <li><a href='#shop_settings'>shop_settings</a></li>
-        <li><a href='#shop_stores'>shop_stores</a></li>
-        <li><a href='#shop_suppliers'>shop_suppliers</a></li>
+
+        
         <li><a href='#shop_vouchers'>shop_vouchers</a></li>
-        <li><a href='#mohinh-er' style="color: red;">🌈 Mô hình Thực thể (ER) cơ sở dữ liệu NetaShop</a></li>
-      </ul>
+        <li><a href='#shop_customer_vouchers'>shop_customer_vouchers</a></li>
+        
+        <li><a href='#shop_settings'>shop_settings</a></li>
+
+      </ol>
     </nav>
 
+    <div class="row my-2">
+      <div class="col">
+        <h2 id="mohinh-er">Mô hình ER</h2>
+        <a href='#mohinh-er' style="color: red;">🌈 Mô hình Thực thể (ER) cơ sở dữ liệu NetaShop</a>
+        <img src="netashop_advanced_v1.1_ER.png" class="img-fluid mohinh-er" />
+      </div>
+    </div>
+
     <div>
+      <h2>Mô tả chi tiết các tables</h2>
       <table class="table table-responsive" id='acl_permissions'>
         <caption>acl_permissions</caption>
         <tr>
@@ -362,7 +379,7 @@
           <td class='field'>role_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#role'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_roles'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -376,7 +393,7 @@
           <td class='field'>permission_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#permission'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_permissions'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -530,7 +547,7 @@
           <td class='field'>user_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -544,7 +561,7 @@
           <td class='field'>permission_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#permission'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_permissions'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -593,7 +610,7 @@
           <td class='field'>user_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -607,7 +624,7 @@
           <td class='field'>role_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#role'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_roles'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1149,7 +1166,7 @@
           <td class='field'>customer_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_customers'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1163,7 +1180,7 @@
           <td class='field'>voucher_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#voucher'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_vouchers'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1583,7 +1600,7 @@
           <td class='field'>export_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#export'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_exports'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1597,7 +1614,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1635,12 +1652,26 @@
           <td>0.0000</td>
           <td>Đơn giá xuất</td>
         </tr>
+        <tr>
+          <td class='field'>import_detail_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#shop_import_details'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Xuất từ chi tiết nhập kho nào?</td>
+        </tr>
       </table>
       <hr class="break-border" />
       <table class="table table-responsive" id='shop_exports'>
         <caption>shop_exports</caption>
         <tr>
-          <td colspan='12'>Bảng chứa dữ liệu về các Phiếu Nhập</td>
+          <td colspan='12'>Bảng chứa dữ liệu về các Phiếu Xuất</td>
         </tr>
         <tr>
           <th>Column name</th>
@@ -1674,7 +1705,7 @@
           <td class='field'>store_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#store'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_stores'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1688,7 +1719,7 @@
           <td class='field'>employee_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1711,6 +1742,34 @@
           <td class='centered'>&nbsp;</td>
           <td></td>
           <td>Ngày Xuất kho</td>
+        </tr>
+        <tr>
+          <td class='field'>description</td>
+          <td>TEXT</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td>NULL</td>
+          <td>Diễn giải</td>
+        </tr>
+        <tr>
+          <td class='field'>order_id</td>
+          <td>BIGINT(20)</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'><a href='#shop_orders'>&#10004;</a></td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&#10004;</td>
+          <td class='centered'>&nbsp;</td>
+          <td class='centered'>&nbsp;</td>
+          <td></td>
+          <td>Xuất cho đơn hàng nào?</td>
         </tr>
         <tr>
           <td class='field'>created_at</td>
@@ -1779,7 +1838,7 @@
           <td class='field'>import_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#import'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_imports'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1793,7 +1852,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1870,7 +1929,7 @@
           <td class='field'>store_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#store'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_stores'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1884,7 +1943,7 @@
           <td class='field'>employee_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1975,7 +2034,7 @@
           <td class='field'>order_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#order'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_orders'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -1989,7 +2048,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2122,7 +2181,7 @@
           <td class='field'>employee_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#employee'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2136,7 +2195,7 @@
           <td class='field'>customer_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_customers'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2290,7 +2349,7 @@
           <td class='field'>payment_type_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#payment_type'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_payment_types'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2733,7 +2792,7 @@
           <td class='field'>user_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#user'>&#10004;</a></td>
+          <td class='centered'><a href='#acl_users'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2747,7 +2806,7 @@
           <td class='field'>post_category_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#post_category'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_post_categories'>&#10004;</a></td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2827,7 +2886,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -2948,7 +3007,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3011,7 +3070,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3025,7 +3084,7 @@
           <td class='field'>customer_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#customer'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_customers'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3130,7 +3189,7 @@
           <td class='field'>product_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#product'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_products'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3144,7 +3203,7 @@
           <td class='field'>voucher_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#voucher'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_vouchers'>&#10004;</a></td>
           <td class='centered'>&#10004;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3375,7 +3434,7 @@
           <td class='field'>category_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#category'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_categories'>&#10004;</a></td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -3389,7 +3448,7 @@
           <td class='field'>supplier_id</td>
           <td>BIGINT(20)</td>
           <td class='centered'>&nbsp;</td>
-          <td class='centered'><a href='#supplier'>&#10004;</a></td>
+          <td class='centered'><a href='#shop_suppliers'>&#10004;</a></td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
           <td class='centered'>&nbsp;</td>
@@ -4020,13 +4079,6 @@
         </tr>
       </table>
       <hr class="break-border" />
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <h2 id="mohinh-er">Mô hình ER</h2>
-        <img src="netashop_advanced_v1.1_ER.png" class="img-fluid mohinh-er" />
-      </div>
     </div>
 
     <div id="footer">
